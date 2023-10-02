@@ -9,5 +9,5 @@
 .env.*.local
 
 # runtime database files
-database/*.sqlite-shm
-database/*.sqlite-wal
+**/*.sqlite-shm
+**/*.sqlite-wal
