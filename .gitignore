@@ -1,6 +1,13 @@
+# dependencies, packages
 **/node_modules
 **/dist
 **/package-lock.json
+
+# local env files
 .env
 .env.local
 .env.*.local
+
+# runtime database files
+database/*.sqlite-shm
+database/*.sqlite-wal
