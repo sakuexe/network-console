@@ -1,0 +1,126 @@
+---
+import { type Device } from './_devices.astro'
+
+interface Props {
+  device: Device
+}
+
+const { device } = Astro.props
+---
+
+<div class="card">
+  <div>
+    <h4>{device.name}</h4>
+    <p>{device.model}</p>
+  </div>
+  <div>
+    <div class="ip-address">
+      <p>{device.ip_address}</p>
+      <button type="button" class="copy-button"
+        ><i class="bi bi-clipboard"></i></button
+      >
+      <p class="copy-notification">Copied to clipboard</p>
+    </div>
+    {
+      device.url && (
+          <a href={device.url} target="_blank" class="external-link">
+            {device.url} <i class="bi bi-box-arrow-up-right" />
+          </a>
+      )
+    }
+    <hr />
+    <label for="notes">Additional notes:</label>
+    <p class="notes">{device.notes || ''}</p>
+    <p>Last updated: {device.last_update}</p>
+  </div>
+</div>
+
+<style>
+  .card {
+    color: var(--foreground);
+    background-color: var(--background);
+    border-radius: var(--border-radius);
+    padding: var(--card-padding) calc(var(--card-padding) * 2);
+  }
+
+  .card p,
+  .card h4 {
+    margin: 0;
+  }
+
+  hr {
+    opacity: 25%;
+    margin: 1rem 0;
+  }
+
+  .ip-address {
+    position: relative;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    column-gap: 0.25rem;
+  }
+  .copy-button {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    aspect-ratio: 1/1;
+    opacity: 75%;
+  }
+  .copy-notification {
+    position: absolute;
+    top: 0;
+    left: 110%;
+    transform: translateY(-0.5rem);
+    width: 100%;
+    font-size: 0.75rem;
+    color: var(--foreground);
+    background-color: var(--background-lighter);
+    border-radius: var(--border-radius);
+    padding: 0.25rem 0.5rem;
+    cursor: default;
+    pointer-events: none;
+    opacity: 0;
+    animation: fade-in-out 3s ease-in-out;
+    animation-play-state: paused;
+  }
+  @keyframes fade-in-out {
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  const buttons: NodeListOf<HTMLButtonElement> =
+    document.querySelectorAll('.copy-button')
+  buttons.forEach((button) => {
+    const ipAddress = button.previousElementSibling as HTMLElement
+    const notification = button.nextElementSibling as HTMLElement
+    const buttonIcon = button.firstElementChild as HTMLElement
+
+    // Copy IP address to clipboard
+    button.addEventListener('click', () => {
+      if (!ipAddress) return
+      notification.style.animationPlayState = 'running'
+      navigator.clipboard.writeText(ipAddress.textContent || '')
+      if (!buttonIcon) return
+      buttonIcon.classList.replace('bi-clipboard', 'bi-clipboard-check')
+    })
+
+    // Reset button icon after animation ends
+    notification.addEventListener('animationend', () => {
+      if (!buttonIcon) return
+      buttonIcon.classList.replace('bi-clipboard-check', 'bi-clipboard')
+    })
+  })
+</script>

@@ -1,8 +1,9 @@
 ---
+import DeviceCard from './_devicecard.astro'
 const response = await fetch('http://localhost:5000/devices')
 const devices = await response.json()
 
-type Device = {
+export type Device = {
   id: number
   type: 'router' | 'switch' | string
   ip_address: string
@@ -32,27 +33,10 @@ console.log(seperatedDevices)
     {
       Object.keys(seperatedDevices).map((type: string) => (
         <div>
-          <h3 class="type">{type}</h3>
+          <h3 class="capitalize">{type}</h3>
           <div class="devicegrid">
             {seperatedDevices[type].map((device: Device) => (
-              <div class="card">
-                <div>
-                  <h4>{device.name}</h4>
-                  <p>{device.model}</p>
-                </div>
-                <hr />
-                <div>
-                  {device.url ? (
-                    <p>
-                      <a href={device.url}>{device.ip_address}</a>
-                    </p>
-                  ) : (
-                    <p>{device.ip_address}</p>
-                  )}
-                  <p>{device.last_update}</p>
-                  <p>{device.notes || ''}</p>
-                </div>
-              </div>
+              <DeviceCard device={device} />
             ))}
           </div>
         </div>
@@ -66,24 +50,14 @@ console.log(seperatedDevices)
     --card-padding: 1rem;
   }
 
+  .capitalize::first-letter {
+    text-transform: uppercase;
+  }
+
   .devicegrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 1rem;
   }
 
-  .type::first-letter {
-    text-transform: uppercase;
-  }
-
-  .card {
-    background-color: var(--background);
-    border-radius: 1rem;
-    padding: var(--card-padding) calc(var(--card-padding) * 2);
-  }
-
-  .card p,
-  .card h4 {
-    margin: 0;
-  }
 </style>
