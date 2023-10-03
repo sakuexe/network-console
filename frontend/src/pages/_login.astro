@@ -3,32 +3,43 @@
 ---
 
 <section>
+  <a href="/login" id="login">
+    Login
+  </a>
 </section>
-<button>Login</button>
 
 <style>
   :root {
     --screen-padding: 1rem;
   }
+
   section {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
-    display: flex;
-    height: 50svh;
+    background: var(--primary-light);
+    outline: 1px solid #ccc;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding-inline: var(--inline-padding);
+    padding-block: calc(var(--screen-padding) / 1.5);
   }
-  button {
-    position: fixed;
-    bottom: var(--screen-padding);
-    right: var(--screen-padding);
-    background: #333;
-    color: #fff;
-    aspect-ratio: 1/1;
-    border: 0;
-    border-radius: var(--border-radius);
-    padding: 20px;
+
+  section p {
+    margin: 0;
+  }
+
+  section a {
+    background: transparent;
+    color: var(--secondary-dark);
+    text-decoration: none;
+    margin-left: auto;
+    outline: 1px solid var(--primary-darker);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
     font-size: 1rem;
     cursor: pointer;
-    shadow: 0 0 10px #000;
   }
 </style>
+
+

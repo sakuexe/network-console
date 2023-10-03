@@ -37,10 +37,12 @@ const { device } = Astro.props
 
 <style>
   .card {
-    color: var(--foreground);
-    background-color: var(--background);
+    color: var(--primary);
+    background-color: var(--secondary-dark);
     border-radius: var(--border-radius);
     padding: var(--card-padding) calc(var(--card-padding) * 2);
+    box-shadow: 0 5px 0.8rem var(--shadow-color);
+    box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
   }
 
   .card p,
@@ -60,13 +62,16 @@ const { device } = Astro.props
     align-items: center;
     column-gap: 0.25rem;
   }
+
   .copy-button {
     border: none;
     cursor: pointer;
     background-color: transparent;
+    color: var(--primary);
     aspect-ratio: 1/1;
     opacity: 75%;
   }
+
   .copy-notification {
     position: absolute;
     top: 0;
@@ -74,8 +79,6 @@ const { device } = Astro.props
     transform: translateY(-0.5rem);
     width: 100%;
     font-size: 0.75rem;
-    color: var(--foreground);
-    background-color: var(--background-lighter);
     border-radius: var(--border-radius);
     padding: 0.25rem 0.5rem;
     cursor: default;

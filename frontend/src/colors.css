@@ -1,0 +1,14 @@
+/* 
+* The color palette for the project
+* the colors can be changed easily here
+*/
+
+:root {
+  --primary-light: #f7f9fd;
+  --primary: #e2e9f7;
+  --primary-dark: #ccd8f1;
+  --secondary-light: #c1e4fc;
+  --secondary: #2256ab;
+  --secondary-dark: #11355a;
+  --shadow-color: #2328482f;
+}

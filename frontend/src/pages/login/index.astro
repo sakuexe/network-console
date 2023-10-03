@@ -1,0 +1,102 @@
+---
+import Layout from '../../layouts/Layout.astro'
+const isDev = import.meta.env.DEV
+const API_URL = isDev ? 'http://localhost:5000/login' : import.meta.env.API_URL
+---
+
+<Layout title="Login to network console">
+  <main class="text-center">
+    <div class="container">
+      <h1>Login to administrative account</h1>
+    </div>
+    <section>
+      <div class="container">
+        <div>
+          <p>
+            Log into the administrative account to manage the devices shown on
+            the page. If you don't have an account, contact the maintainer.
+          </p>
+          <p>
+            Return to the front page <a href="/">here</a>
+          </p>
+        </div>
+        <form action={API_URL} method="post">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" />
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" />
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  :root {
+    --wrapper-padding-inline: 1rem;
+    --wrapper-margin-block: 1rem;
+    --wrapper-max-width: 50rem;
+  }
+
+  main {
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  section {
+    background: var(--primary-dark);
+    width: 100%;
+    box-shadow: 0 6px 1rem var(--shadow-color);
+  }
+
+  .container {
+    max-width: var(--wrapper-max-width);
+    padding-inline: var(--wrapper-padding-inline);
+    margin: 0 auto;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--primary-darker);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin: 0 auto;
+  }
+
+  input {
+    margin-bottom: 1rem;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: var(--secondary-dark);
+    border-radius: var(--border-radius);
+    border: none;
+    outline: none;
+  }
+
+  form button {
+    background: var(--secondary);
+    color: var(--primary);
+    border-radius: var(--border-radius);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    width: min(100%, 10rem);
+  }
+
+  @media (min-width: 600px) {
+    section > .container {
+      display: grid;
+      grid-template-columns: 0.8fr 1fr;
+      align-items: center;
+    }
+  }
+</style>
