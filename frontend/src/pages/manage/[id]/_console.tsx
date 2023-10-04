@@ -24,13 +24,18 @@ export default function ManagementConsole(props: DeviceProps) {
   return (
     <main className="container">
       {device ? (
-        <DeviceInfo device={device} />
+        <>
+          <header>
+            <h2 className="capitalize">{device.name}</h2>
+            <p>{device.model}</p>
+          </header>
+          <DeviceInfo device={device} apiUrl={apiUrl} />
+        </>
       ) : isLoading ? (
         <p>Loading...</p>
       ) : (
         <p>Device not found. Try fetching again</p>
       )}
-      <p>apiUrl {apiUrl}</p>
     </main>
   )
 }

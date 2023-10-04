@@ -1,22 +1,13 @@
 ---
 import Layout from '../../../layouts/Layout.astro'
 import ManagementConsole from './_console.tsx'
-
-export type Device = {
-  id: number
-  type: 'router' | 'switch' | string
-  ip_address: string
-  name: string
-  model: string | null
-  url: string | null
-  last_update: string
-  notes: string | null
-}
+import type { Device } from '../../_devices.astro'
 
 export async function getStaticPaths() {
+// get all the devices for the static paths on build
   const response = await fetch('http://localhost:5000/devices')
   const devices = await response.json()
-  return devices.map((device: Device, index: number) => ({ params: { id: index + 1 } }));
+  return devices.map((device: Device, index: number) => ({ params: { id: device.id } }));
 }
 
 const isDev = import.meta.env.DEV
@@ -25,9 +16,37 @@ const API_URL = isDev ? 'http://localhost:5000' : prodApi
 ---
 
 <Layout title="Management console">
-  <header class="container">
-  <h1>Page Title</h1>
-  <p>Page content</p>
-  </header>
-  <ManagementConsole client:only deviceId={1} apiUrl={API_URL} />
+  <ManagementConsole client:only deviceId={parseInt(Astro.params.id || "1")} apiUrl={API_URL} />
 </Layout>
+
+<style is:inline>
+
+  header {
+    margin-block: 2rem 1rem;
+  }
+
+  header h2, header p {
+    margin-block: 0;
+  }
+
+  header p {
+    font-size: 1rem;
+    color: var(--secondary-dark);
+    opacity: 75%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  form input, form textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--secondary-dark)
+  }
+</style>

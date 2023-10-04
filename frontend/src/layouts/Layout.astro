@@ -20,6 +20,9 @@ const { title } = Astro.props
   </head>
   <body>
     <slot />
+    <footer class="container">
+      <p><a href="/">return to main page</a></p>
+    </footer>
   </body>
 </html>
 <style is:global>
@@ -60,6 +63,11 @@ const { title } = Astro.props
   .text-center {
     text-align: center;
   }
+
+  .capitalize::first-letter {
+    text-transform: uppercase;
+  }
+
   .external-link {
     color: var(--accent);
     text-underline-offset: 0.2rem;
@@ -80,5 +88,6 @@ const { title } = Astro.props
     margin-top: 8rem;
     padding: 2rem 0;
     border-top: 1px solid var(--secondary-light);
+    font-size: 0.875rem;
   }
 </style>
