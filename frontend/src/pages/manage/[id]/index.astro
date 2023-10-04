@@ -1,0 +1,33 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import ManagementConsole from './_console.tsx'
+
+export type Device = {
+  id: number
+  type: 'router' | 'switch' | string
+  ip_address: string
+  name: string
+  model: string | null
+  url: string | null
+  last_update: string
+  notes: string | null
+}
+
+export async function getStaticPaths() {
+  const response = await fetch('http://localhost:5000/devices')
+  const devices = await response.json()
+  return devices.map((device: Device, index: number) => ({ params: { id: index + 1 } }));
+}
+
+const isDev = import.meta.env.DEV
+const prodApi = `${import.meta.env.API_URL}:${import.meta.env.API_PORT}`
+const API_URL = isDev ? 'http://localhost:5000' : prodApi
+---
+
+<Layout title="Management console">
+  <header class="container">
+  <h1>Page Title</h1>
+  <p>Page content</p>
+  </header>
+  <ManagementConsole client:only deviceId={1} apiUrl={API_URL} />
+</Layout>

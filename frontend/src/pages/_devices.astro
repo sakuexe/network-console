@@ -1,6 +1,7 @@
 ---
 import DeviceCard from './_devicecard.astro'
-const response = await fetch('http://localhost:5000/devices')
+const API_URL = `${import.meta.env.API_URL}:${import.meta.env.API_PORT}`
+const response = await fetch(`${API_URL}/devices`)
 const devices = await response.json()
 
 export type Device = {
@@ -23,8 +24,6 @@ devices.map((device: Device) => {
   }
   seperatedDevices[type].push(device)
 })
-
-console.log(seperatedDevices)
 ---
 
 <main class="container">

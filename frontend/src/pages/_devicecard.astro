@@ -32,6 +32,12 @@ const { device } = Astro.props
     <label for="notes">Additional notes:</label>
     <p class="notes">{device.notes || ''}</p>
     <p>Last updated: {device.last_update}</p>
+    <hr />
+    <div class="edit">
+      <p>
+      <a href={`manage/${device.id}`} class="edit-button">Edit</a>
+      </p>
+    </div>
   </div>
 </div>
 
@@ -61,6 +67,17 @@ const { device } = Astro.props
     width: fit-content;
     align-items: center;
     column-gap: 0.25rem;
+  }
+
+  .edit > p {
+    text-align: center;
+  }
+
+  .edit a {
+    color: var(--primary-light);
+    font-size: 1rem;
+    opacity: 75%;
+    padding-block: 1rem;
   }
 
   .copy-button {
