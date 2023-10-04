@@ -2,6 +2,12 @@
 import Layout from '../../layouts/Layout.astro'
 import getApiUrl from '../../utils/apiurl.ts'
 const API_URL = getApiUrl()
+let isLoggedIn = false
+
+console.log(Astro.cookies.get("loggedIn"))
+if (Astro.cookies.has('loggedIn')) {
+  isLoggedIn = true
+}
 ---
 
 <Layout title="Login to network console">

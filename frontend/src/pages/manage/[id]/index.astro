@@ -1,16 +1,8 @@
 ---
 import Layout from '../../../layouts/Layout.astro'
 import ManagementConsole from './_console.tsx'
-import type { Device } from '../../_devices.astro'
 import getApiUrl from '../../../utils/apiurl.ts'
 const API_URL = getApiUrl()
-
-export async function getStaticPaths() {
-// get all the devices for the static paths on build
-  const response = await fetch('http://localhost:5000/devices')
-  const devices = await response.json()
-  return devices.map((device: Device, index: number) => ({ params: { id: device.id } }));
-}
 ---
 
 <Layout title="Management console">
