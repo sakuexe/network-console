@@ -1,6 +1,7 @@
 ---
 import DeviceCard from './_devicecard.astro'
-const API_URL = `${import.meta.env.API_URL}:${import.meta.env.API_PORT}`
+import getApiUrl from '../utils/apiurl.ts'
+const API_URL = getApiUrl()
 const response = await fetch(`${API_URL}/devices`)
 const devices = await response.json()
 

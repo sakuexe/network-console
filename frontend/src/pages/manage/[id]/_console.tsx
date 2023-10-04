@@ -22,12 +22,12 @@ export default function ManagementConsole(props: DeviceProps) {
   }, [deviceId, apiUrl])
 
   return (
-    <main className="container">
+    <main>
       {device ? (
         <>
           <header>
-            <h2 className="capitalize">{device.name}</h2>
-            <p>{device.model}</p>
+            <h2 className="capitalize text-center">{device.name}</h2>
+            <p className="text-center">{device.model}</p>
           </header>
           <DeviceInfo device={device} apiUrl={apiUrl} />
         </>

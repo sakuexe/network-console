@@ -1,10 +1,14 @@
 ---
 import '../colors.css'
+import getApiUrl from '../utils/apiurl.ts'
+
 interface Props {
   title: string
 }
 
 const { title } = Astro.props
+
+const apiurl = getApiUrl()
 ---
 
 <!doctype html>
@@ -22,6 +26,7 @@ const { title } = Astro.props
     <slot />
     <footer class="container">
       <p><a href="/">return to main page</a></p>
+      <p><a href={`${apiurl}/devices/add`}>add another device</a></p>
     </footer>
   </body>
 </html>
@@ -89,5 +94,7 @@ const { title } = Astro.props
     padding: 2rem 0;
     border-top: 1px solid var(--secondary-light);
     font-size: 0.875rem;
+    display: flex;
+    justify-content: space-between;
   }
 </style>

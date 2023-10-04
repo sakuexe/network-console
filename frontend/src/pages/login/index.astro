@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-const isDev = import.meta.env.DEV
-const API_URL = isDev ? 'http://localhost:5000/login' : import.meta.env.API_URL
+import getApiUrl from '../../utils/apiurl.ts'
+const API_URL = getApiUrl()
 ---
 
 <Layout title="Login to network console">

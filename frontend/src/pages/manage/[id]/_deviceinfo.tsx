@@ -45,62 +45,79 @@ export default function DeviceInfo(props: DeviceInfoProps) {
       method="POST"
       onSubmit={handleSubmit}
     >
-      <output>{status && <p>{status}</p>}</output>
+      <output>
+        {status && <p className={status ? 'success' : 'error'}>{status}</p>}
+      </output>
 
-      <label htmlFor="type">Type:</label>
-      <input
-        type="text"
-        id="type"
-        name="type"
-        defaultValue={formData.type}
-        onChange={(event) => handleOnChange(event.target)}
-      />
+      <div>
+        <label htmlFor="type">Type:</label>
+        <input
+          type="text"
+          id="type"
+          name="type"
+          defaultValue={formData.type}
+          onChange={(event) => handleOnChange(event.target)}
+        />
+      </div>
 
-      <label htmlFor="name">Name:</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        defaultValue={formData.name}
-        onChange={(event) => handleOnChange(event.target)}
-      />
+      <div>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          defaultValue={formData.name}
+          onChange={(event) => handleOnChange(event.target)}
+        />
+      </div>
 
-      <label htmlFor="model">Model:</label>
-      <input
-        type="text"
-        id="model"
-        name="model"
-        defaultValue={formData.model}
-        onChange={(event) => handleOnChange(event.target)}
-      />
+      <div>
+        <label htmlFor="model">Model:</label>
+        <input
+          type="text"
+          id="model"
+          name="model"
+          defaultValue={formData.model}
+          onChange={(event) => handleOnChange(event.target)}
+        />
+      </div>
 
-      <label htmlFor="ip_address">IP Address:</label>
-      <input
-        type="text"
-        id="ip_address"
-        name="ip_address"
-        defaultValue={formData.ip_address}
-        onChange={(event) => handleOnChange(event.target)}
-      />
+      <div>
+        <label htmlFor="ip_address">IP Address:</label>
+        <input
+          type="text"
+          id="ip_address"
+          name="ip_address"
+          defaultValue={formData.ip_address}
+          onChange={(event) => handleOnChange(event.target)}
+        />
+      </div>
 
-      <label htmlFor="url">URL:</label>
-      <input
-        type="text"
-        id="url"
-        name="url"
-        defaultValue={formData.url}
-        onChange={(event) => handleOnChange(event.target)}
-      />
+      <div>
+        <label htmlFor="url">URL:</label>
+        <input
+          type="text"
+          id="url"
+          name="url"
+          defaultValue={formData.url}
+          onChange={(event) => handleOnChange(event.target)}
+        />
+      </div>
 
-      <label htmlFor="notes">Notes:</label>
-      <textarea
-        id="notes"
-        name="notes"
-        rows={4}
-        defaultValue={formData.notes}
-        onChange={(event) => handleOnChange(event.target)}
-      ></textarea>
-      <button type="submit">Submit Changes</button>
+      <div>
+        <label htmlFor="notes">Notes:</label>
+        <textarea
+          id="notes"
+          name="notes"
+          rows={4}
+          defaultValue={formData.notes}
+          onChange={(event) => handleOnChange(event.target)}
+        ></textarea>
+      </div>
+      <div className="buttons">
+        <a href="/">Return</a>
+        <button type="submit">Submit Changes</button>
+      </div>
     </form>
   )
 }
