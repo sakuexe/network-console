@@ -35,7 +35,10 @@ const { device } = Astro.props
     <hr />
     <div class="edit">
       <p>
-      <a href={`manage/${device.id}`} class="edit-button">Edit</a>
+        <a href={`manage/${device.id}`} class="edit-button">Edit</a>
+      </p>
+      <p>
+        <a href={`manage/remove/${device.id}`} class="remove-button">Remove</a>
       </p>
     </div>
   </div>
@@ -67,6 +70,12 @@ const { device } = Astro.props
     width: fit-content;
     align-items: center;
     column-gap: 0.25rem;
+  }
+
+  .edit {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
   }
 
   .edit > p {

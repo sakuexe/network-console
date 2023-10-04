@@ -42,6 +42,20 @@ router.post("/add", (req: Request, res: Response) => {
   }
 });
 
+router.post("/remove/:id", (req: Request, res: Response) => {
+  const deviceId = req.params.id;
+  // prepare the query to prevent SQL injection
+  const query = "DELETE FROM device WHERE id = ?";
+  try {
+    db.prepare(query).run(deviceId);
+    res.status(200).redirect(frontendUrl);
+  } catch (error) {
+    res
+      .status(500)
+      .redirect(frontendUrl + "manage/remove/" + deviceId + "?error=true");
+  }
+});
+
 router
   .route("/:id")
 
