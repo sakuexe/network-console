@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import DeviceInfo from './_deviceinfo'
 import type { Device } from '../../_devices.astro'
+import '../manage.css'
 
 type DeviceProps = {
   deviceId: number

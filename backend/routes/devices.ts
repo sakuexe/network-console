@@ -1,9 +1,13 @@
 import express from "express";
 import { Request, Response } from "express";
+import dotenv from "dotenv";
 import Database from "better-sqlite3";
 import { Options } from "better-sqlite3";
 
 const router = express.Router();
+
+dotenv.config();
+
 const frontendUrl = `${process.env.FRONTEND_URL}:${process.env.FRONTEND_PORT}`;
 
 // add the options for the database
@@ -16,6 +20,27 @@ const options: Options = {
 
 const db = new Database("network.sqlite", options);
 db.pragma("journal_mode = WAL");
+
+router.post("/add", (req: Request, res: Response) => {
+  // add a new device
+  // prepare the query to prevent SQL injection
+  const query = `INSERT INTO device
+    (type, ip_address, name, model, url, notes)
+    VALUES (?, ?, ?, ?, ?, ?)`;
+  try {
+    db.prepare(query).run(
+      req.body.type,
+      req.body.ip_address,
+      req.body.name,
+      req.body.model,
+      req.body.url,
+      req.body.notes,
+    );
+    res.status(200).redirect(frontendUrl);
+  } catch (error) {
+    res.status(401).redirect(frontendUrl + "/manage/add?error=true");
+  }
+});
 
 router
   .route("/:id")
