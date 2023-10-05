@@ -8,7 +8,6 @@ interface Props {
 }
 
 const { title, showFooter } = Astro.props
-
 ---
 
 <!doctype html>
@@ -18,13 +17,16 @@ const { title, showFooter } = Astro.props
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
   <body>
     <slot />
-{showFooter && <Footer />}
+    {showFooter && <Footer />}
   </body>
 </html>
 <style is:global>
@@ -43,6 +45,23 @@ const { title, showFooter } = Astro.props
     background: var(--primary-light);
     color: var(--secondary-dark);
   }
+
+  header {
+    padding-block: 2rem;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  header span:not(.text-bold) {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-block: 0.5rem;
+  }
+
+  header > * {
+    margin: 0;
+  }
+
   .container {
     width: min(var(--max-width), 100% - var(--inline-padding) * 2);
     margin-inline: auto;
@@ -64,6 +83,10 @@ const { title, showFooter } = Astro.props
   }
   .text-center {
     text-align: center;
+  }
+
+  .text-bold {
+    font-weight: 600;
   }
 
   .capitalize::first-letter {

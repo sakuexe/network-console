@@ -1,4 +1,5 @@
 import getApiUrl from '../../../utils/apiurl.ts'
+import '../_manage.css'
 
 export default function AddDevice() {
   const params = new URLSearchParams(window.location.search).get('error')
@@ -47,6 +48,7 @@ export default function AddDevice() {
           <button type="submit">Submit Changes</button>
         </div>
       </form>
+      <p className="secondary">* Required</p>
     </main>
   )
 }
