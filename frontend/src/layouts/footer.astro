@@ -1,0 +1,22 @@
+---
+let loggedIn = Astro.cookies.has('loggedIn')
+---
+
+<footer class="container">
+  <p><a href="/">return to main page</a></p>
+  {loggedIn ? (
+    <p><button type="button">Log out</button></p>
+  ) : (
+    <p><a href="/login">Log in</a></p>
+  )}
+  <p><a href={`/manage/add`}>add another device</a></p>
+</footer>
+
+<script>
+  document.querySelector('footer button')?.addEventListener('click', () => {
+    // remove the loggedin cookie
+    document.cookie = "loggedIn=false; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+    console.log('logged out', document.cookie)
+    window.location.reload()
+  })
+</script>

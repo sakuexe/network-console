@@ -2,13 +2,9 @@
 import Layout from '../layouts/Layout.astro'
 import Devices from './_devices.astro'
 
-console.log(Astro.cookies.get('loggedIn'))
-if (Astro.cookies.has('loggedIn')) {
-  console.log('has cookie')
-}
 ---
 
-<Layout title="TLLabra devices">
+<Layout title="TLLabra devices" showFooter>
   <header class="container">
     <h1>Assignment 3 - Frontend</h1>
     <p>
@@ -23,7 +19,6 @@ if (Astro.cookies.has('loggedIn')) {
     </p>
   </header>
   <Devices />
-  <footer></footer>
 </Layout>
 
 <style>

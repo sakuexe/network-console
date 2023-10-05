@@ -2,16 +2,17 @@ import express from "express";
 import { Request, Response } from "express";
 import Database from "better-sqlite3";
 import { Options } from "better-sqlite3";
-import dotenv from "dotenv";
+import createAdmin from "../utils/createadmin";
 /*
  * Documentation for the better-sqlite3 library:
  * API docs: https://github.com/WiseLibs/better-sqlite3/blob/master/docs/api.md
  * Safe queries: https://github.com/WiseLibs/better-sqlite3/blob/master/docs/api.md#getbindparameters---row
  */
 
-dotenv.config();
-
-const frontendUrl = `${process.env.FRONTEND_URL}:${process.env.FRONTEND_PORT}`;
+// create a new admin user if one doesn't exist
+// with the username and password from the .env file
+// or the env variables
+createAdmin();
 
 const router = express.Router();
 
@@ -29,24 +30,41 @@ type LoginRequest = {
   password: string;
 };
 
-// ensure that the user is logged in
-router.use((req, res, next) => {
-  console.log(req.body);
-  const { username, password }: LoginRequest = req.body;
-  // prepare the query to prevent SQL injection
-  const query = "SELECT * FROM admin WHERE username = ? AND password = ?";
-  // get the admin user from the database by inserting the username and password
-  // into the query, safely
-  const adminUser = db.prepare(query).get(username, password);
-  if (!adminUser) {
-    return res.status(401).redirect(`${frontendUrl}/login?success=false`);
-  }
-  next();
-});
-
-// POST login request
+// Login authentication
 router.post("/", (req: Request, res: Response) => {
-  return res.status(200).redirect(`${frontendUrl}/manage`);
+  // allow the dev user to login without a password
+  // in development mode
+  if (process.env.NODE_ENV === "dev" && req.body.username === "dev") {
+    return res
+      .status(200)
+      .json({ success: true, message: "Login successful, redirecting..." });
+  }
+  // check if the username is provided
+  if (!req.body.username) {
+    return res.status(400).json({ success: false, message: "No username" });
+  }
+  // check if the password is provided
+  if (!req.body.password) {
+    return res.status(400).json({ success: false, message: "No password" });
+  }
+  // if all guard clauses pass, continue the authentication
+  const { username, password }: LoginRequest = req.body;
+  const query = "SELECT * FROM admin WHERE username = ? AND password = ?";
+  let adminUser;
+  try {
+    adminUser = db.prepare(query).get(username, password);
+  } catch (error: unknown) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+  if (!adminUser) {
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid credentials provided" });
+  }
+  return res
+    .status(200)
+    .json({ success: true, message: "Login successful, redirecting..." });
 });
 
 export default router;

@@ -6,6 +6,8 @@ interface Props {
 }
 
 const { device } = Astro.props
+
+let loggedIn = Astro.cookies.has('loggedIn')
 ---
 
 <div class="card">
@@ -32,15 +34,17 @@ const { device } = Astro.props
     <label for="notes">Additional notes:</label>
     <p class="notes">{device.notes || ''}</p>
     <p>Last updated: {device.last_update}</p>
-    <hr />
-    <div class="edit">
-      <p>
-        <a href={`manage/${device.id}`} class="edit-button">Edit</a>
-      </p>
-      <p>
-        <a href={`manage/remove/${device.id}`} class="remove-button">Remove</a>
-      </p>
-    </div>
+    {loggedIn && (
+      <hr />
+      <div class="edit">
+        <p>
+          <a href={`manage/${device.id}`} class="edit-button">Edit</a>
+        </p>
+        <p>
+          <a href={`manage/remove/${device.id}`} class="remove-button">Remove</a>
+        </p>
+      </div>
+    )}
   </div>
 </div>
 

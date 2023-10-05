@@ -4,7 +4,6 @@ import getApiUrl from '../../utils/apiurl.ts'
 const API_URL = getApiUrl()
 let isLoggedIn = false
 
-console.log(Astro.cookies.get("loggedIn"))
 if (Astro.cookies.has('loggedIn')) {
   isLoggedIn = true
 }
@@ -32,11 +31,39 @@ if (Astro.cookies.has('loggedIn')) {
           <label for="password">Password</label>
           <input type="password" name="password" id="password" />
           <button type="submit">Login</button>
+          <output></output>
         </form>
       </div>
     </section>
   </main>
 </Layout>
+
+<script>
+  import getApiUrl from '../../utils/apiurl.ts'
+  import authenticateLogin from './authenticatelogin.ts'
+
+  const form = document.querySelector('form')
+  const output = document.querySelector('form>output')!
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault()
+    const username: HTMLInputElement = document.querySelector('input#username')!
+    const password: HTMLInputElement = document.querySelector('input#password')!
+
+    const response = await authenticateLogin(username.value, password.value, getApiUrl())
+
+    if (!response.success) {
+      output.textContent = response.message
+      return
+    }
+
+    // set the cookie to expire in 1 day
+    const daysFromNow = import.meta.env.COOKIES_EXPIRE_DAYS || 1
+    const expires = new Date(Date.now() + 1000 * 60 * 60 * 24 * daysFromNow)
+    document.cookie = `loggedIn=true; expires=${expires.toUTCString()}; path=/`
+    window.location.href = '/'
+  })
+</script>
 
 <style>
   :root {
@@ -84,6 +111,11 @@ if (Astro.cookies.has('loggedIn')) {
     border-radius: var(--border-radius);
     border: none;
     outline: none;
+  }
+
+  output {
+    font-size: 1rem;
+    color: var(--secondary);
   }
 
   form button {

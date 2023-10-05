@@ -4,12 +4,8 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/utils/": [
-        "./src/utils/*"
-      ]
+      "@/*": ["./src/*"],
+      "@/utils/": ["./src/utils/*"]
     }
   }
 }
