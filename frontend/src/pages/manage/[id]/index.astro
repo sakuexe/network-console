@@ -3,10 +3,16 @@ import Layout from '../../../layouts/Layout.astro'
 import ManagementConsole from './_console.tsx'
 import getApiUrl from '../../../utils/apiurl.ts'
 const API_URL = getApiUrl()
+const isLoggedIn = Astro.cookies.has('loggedIn')
 ---
 
 <Layout title="Management console">
   <section>
-  <ManagementConsole client:only deviceId={parseInt(Astro.params.id || "1")} apiUrl={API_URL} />
+    {isLoggedIn ? (
+      <ManagementConsole client:only deviceId={parseInt(Astro.params.id || "1")} apiUrl={API_URL} />
+      ) : (
+      <p class="text-center">You are not logged in. Please <a href="/login">log in</a> to access the management console.</p>
+      )
+    }
   </section>
 </Layout>

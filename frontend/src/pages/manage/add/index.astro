@@ -1,14 +1,22 @@
 ---
 import Layout from '../../../layouts/Layout.astro'
 import AddDevice from './_console'
+const isLoggedIn = Astro.cookies.has('loggedIn')
 ---
 
 <Layout title="Add device">
   <header class="container">
     <h1 class="text-center">Add a new device</h1>
-    <p class="text-center">Page content</p>
+    <p class="text-center">Insert the information of the device to add it to the list</p>
   </header>
-  <AddDevice client:only error={""} />
+  {isLoggedIn ? (
+    <AddDevice client:only />
+  ) : (
+    <main>
+      <p class="text-center">You must be logged in to add a device.</p>
+      <p class="text-center"><a href="/login">Login</a></p>
+    </main>
+  )}
 </Layout>
 
 <style is:inline>

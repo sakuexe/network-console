@@ -1,41 +1,40 @@
 ---
+import Layout from '../../../layouts/Layout.astro'
 import getApiUrl from '../../../utils/apiurl.ts'
 import type { Device } from '../../_devices.astro'
 
-export async function getStaticPaths() {
-  // get all the devices for the static paths on build
-  const API_URL = getApiUrl()
-  const response = await fetch(`${API_URL}/devices`)
-  const devices = await response.json()
-  return devices.map((device: Device) => ({
-    params: { id: device.id },
-    props: {
-      name: device.name,
-      model: device.model,
-      ip_address: device.ip_address,
-      url: device.url,
-      notes: device.notes,
-      last_updated: device.last_update,
-    },
-  }))
-}
+const response = await fetch(`${getApiUrl()}/devices/${Astro.params.id}`)
+const device = await response.json() as Device
 
-const { name, model, ip_address, url, notes, last_updated } = Astro.props
+const { name, model, ip_address, url, notes, last_update } = device
+const isLoggedIn = Astro.cookies.has('loggedIn')
 ---
 
-<article class="remove-popup">
-  <h1>Remove {name}?</h1>
-  <p>id: {Astro.params.id}</p>
-  <p>model: {model}</p>
-  <p>ip address: {ip_address}</p>
-  <p>url: <a href={url}>{url}</a></p>
-  <p>notes: {notes}</p>
-  <p>last updated: {last_updated}</p>
-  <h2>Log in to remove this device</h2>
-  <form action={`${getApiUrl()}/devices/remove/${Astro.params.id}`} method="POST">
-    <input type="text" name="username" id="username">
-    <input type="text" name="password" id="password">
-  <button type="button">Cancel</button>
-  <button type="submit">Remove</button>
-  </form>
-</article>
+<Layout title={`Remove ${name}?`}>
+{!isLoggedIn ? (
+  <article>
+    <p class="text-center">You are not logged in. Please <a href="/login">log in</a> to remove the device.</p>
+  </article>
+) : (
+  <article class="container">
+    <h1>Remove {name}?</h1>
+    <p>id: {Astro.params.id}</p>
+    <p>model: {model}</p>
+    <p>ip address: {ip_address}</p>
+    <p>url: <a href={url}>{url}</a></p>
+    <p>notes: {notes}</p>
+    <p>last updated: {last_update}</p>
+    <form action={`${getApiUrl()}/devices/remove/${Astro.params.id}`} method="POST">
+      <button type="button">Cancel</button>
+      <button type="submit">Remove</button>
+    </form>
+  </article>
+)}
+</Layout>
+
+<script>
+  const cancelButton = document.querySelector('button[type="button"]')
+  cancelButton?.addEventListener('click', () => {
+    window.history.back()
+  })
+</script>
