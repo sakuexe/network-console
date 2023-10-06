@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import dotenv from "dotenv";
 import Database from "better-sqlite3";
 import { Options } from "better-sqlite3";
+import validateDevice from "../utils/validatedevice";
 
 const router = express.Router();
 
@@ -22,11 +23,16 @@ const db = new Database("network.sqlite", options);
 db.pragma("journal_mode = WAL");
 
 router.post("/add", (req: Request, res: Response) => {
-  // add a new device
-  // prepare the query to prevent SQL injection
+  if (!validateDevice(req.body)) {
+    return res
+      .status(401)
+      .json({ success: false, messsage: "Invalid device data" });
+  }
+
   const query = `INSERT INTO device
     (type, ip_address, name, model, url, notes)
     VALUES (?, ?, ?, ?, ?, ?)`;
+
   try {
     db.prepare(query).run(
       req.body.type,
@@ -36,9 +42,15 @@ router.post("/add", (req: Request, res: Response) => {
       req.body.url,
       req.body.notes,
     );
-    res.status(200).redirect(frontendUrl);
+    return res.status(200).json({
+      success: true,
+      messsage: "Device added to the database successfully",
+    });
   } catch (error) {
-    res.status(401).redirect(frontendUrl + "/manage/add?error=true");
+    res.status(400).json({
+      success: false,
+      message: "Error adding to the database, re-check device values",
+    });
   }
 });
 

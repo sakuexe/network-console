@@ -1,27 +1,75 @@
+import { useState } from 'react'
 import getApiUrl from '../../../utils/apiurl.ts'
 import '../_manage.css'
 
-export default function AddDevice() {
-  const params = new URLSearchParams(window.location.search).get('error')
+type Response = {
+  success: boolean
+  message: string
+}
+
+async function sendFormData(form: HTMLFormElement): Promise<Response> {
+  const formData = Object.fromEntries(new FormData(form))
   const apiUrl = getApiUrl()
+  try {
+    const res = await fetch(`${apiUrl}/devices/add`, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    if (!res.ok) {
+      return await res.json()
+    }
+    return await res.json()
+  } catch (e) {
+    return { success: false, message: "Couldn't connect to the server" }
+  }
+}
+
+export default function AddDevice() {
+  const [status, setStatus] = useState<Response>()
+
+  async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const res = await sendFormData(event.currentTarget)
+    setStatus(res)
+  }
+
+  if (status?.success === true) {
+    window.location.href = '/'
+    return (
+      <main>
+        <output className="text-center">
+          <p>{status?.message || 'Device added succesfully'}</p>
+          <p>Redirecting...</p>
+        </output>
+      </main>
+    )
+  }
+
   return (
     <main>
-      {params && (
+      {status?.success === false && (
         <output>
-          <p className="error">
-            Couldn't add the device. Check the values and try again
+          <p>
+            {status?.message || 'An error occurred. Please try again later.'}
           </p>
         </output>
       )}
-      <form action={`${apiUrl}/devices/add`} method="POST">
+      <form onSubmit={handleFormSubmit}>
         <div>
-          <label htmlFor="type">Type:</label>
-          <input type="text" id="type" name="type" />
+          <label htmlFor="type">
+            <abbr title="Required">*</abbr> Type:
+          </label>
+          <input type="text" id="type" name="type" required />
         </div>
 
         <div>
-          <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" />
+          <label htmlFor="name">
+            <abbr title="Required">*</abbr> Name:
+          </label>
+          <input type="text" id="name" name="name" required />
         </div>
 
         <div>
@@ -30,13 +78,26 @@ export default function AddDevice() {
         </div>
 
         <div>
-          <label htmlFor="ip_address">IP Address:</label>
-          <input type="text" id="ip_address" name="ip_address" />
+          <label htmlFor="ip_address">
+            <abbr title="Required, must be unique">*</abbr> IP Address:
+          </label>
+          <input
+            type="text"
+            id="ip_address"
+            name="ip_address"
+            pattern="^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$"
+            required
+          />
         </div>
 
         <div>
           <label htmlFor="url">URL:</label>
-          <input type="text" id="url" name="url" />
+          <input
+            type="text"
+            id="url"
+            name="url"
+            pattern="^(http|https):\/\/.*"
+          />
         </div>
 
         <div>

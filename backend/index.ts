@@ -22,6 +22,10 @@ app.get("/", (req: Request, res: Response) => {
   res.status(500).send("Hello World!");
 });
 
+app.get("/ip", (req: Request, res: Response) => {
+  res.status(200).json({ ip: req.ip });
+});
+
 app.use("/devices", devicesRouter);
 
 app.use("/login", authRouter);
