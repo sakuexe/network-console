@@ -42,4 +42,5 @@ export default function createAdmin() {
   const username = process.env.ADMIN_USERNAME;
   const password = process.env.ADMIN_PASSWORD;
   db.prepare(query).run(username, password);
+  db.close();
 }

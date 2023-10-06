@@ -22,9 +22,6 @@ const options: Options = {
   timeout: 50000,
 };
 
-const db = new Database("network.sqlite", options);
-db.pragma("journal_mode = WAL");
-
 type LoginRequest = {
   username: string;
   password: string;
@@ -48,11 +45,16 @@ router.post("/", (req: Request, res: Response) => {
     return res.status(400).json({ success: false, message: "No password" });
   }
   // if all guard clauses pass, continue the authentication
+  const db = new Database("network.sqlite", options);
+  db.pragma("journal_mode = WAL");
+
   const { username, password }: LoginRequest = req.body;
   const query = "SELECT * FROM admin WHERE username = ? AND password = ?";
   let adminUser;
+
   try {
     adminUser = db.prepare(query).get(username, password);
+    db.close();
   } catch (error: unknown) {
     console.error(error);
     return res.status(500).json({ success: false, message: "Server error" });
