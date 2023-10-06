@@ -4,16 +4,15 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+type Database = typeof Database;
+
 const options: Options = {
   verbose: console.log,
   fileMustExist: true,
   timeout: 50000,
 };
 
-const db = new Database("network.sqlite", options);
-db.pragma("journal_mode = WAL");
-
-function ensureAdminTableExists() {
+function ensureAdminTableExists(db: Database.Database) {
   const query = `CREATE TABLE IF NOT EXISTS admin (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE,
@@ -22,7 +21,7 @@ function ensureAdminTableExists() {
   db.prepare(query).run();
 }
 
-function adminUserExists() {
+function adminUserExists(db: Database.Database) {
   let adminUser;
   try {
     const query = "SELECT * FROM admin";
@@ -34,8 +33,11 @@ function adminUserExists() {
 }
 
 export default function createAdmin() {
-  ensureAdminTableExists();
-  if (adminUserExists()) {
+  const db = new Database("network.sqlite", options);
+  db.pragma("journal_mode = WAL");
+
+  ensureAdminTableExists(db);
+  if (adminUserExists(db)) {
     return;
   }
   const query = "INSERT INTO admin (username, password) VALUES (?, ?)";
