@@ -8,6 +8,8 @@ interface Props {
 const { device } = Astro.props
 
 let loggedIn = Astro.cookies.has('loggedIn')
+
+const lastUpdate = new Date(device.last_update).toLocaleDateString('fi-FI')
 ---
 
 <div class="card">
@@ -25,26 +27,40 @@ let loggedIn = Astro.cookies.has('loggedIn')
     </div>
     {
       device.url && (
-          <a href={device.url} target="_blank" class="external-link">
-            {device.url} <i class="bi bi-box-arrow-up-right" />
-          </a>
+        <a href={device.url} target="_blank" class="external-link">
+          {device.url} <i class="bi bi-box-arrow-up-right" />
+        </a>
       )
     }
     <hr />
-    <label for="notes">Additional notes:</label>
-    <p class="notes">{device.notes || ''}</p>
-    <p>Last updated: {device.last_update}</p>
-    {loggedIn && (
-      <hr />
-      <div class="edit">
-        <p>
-          <a href={`manage/${device.id}`} class="edit-button">Edit</a>
-        </p>
-        <p>
-          <a href={`manage/remove/${device.id}`} class="remove-button">Remove</a>
-        </p>
-      </div>
-    )}
+    {
+      device.notes && (
+        <>
+          <label for="notes">Additional notes:</label>
+          <p class="notes">{device.notes || ''}</p>
+        </>
+      )
+    }
+    <p class="last-update">Last updated: {lastUpdate}</p>
+    {
+      loggedIn && (
+        <>
+          <hr />
+          <div class="edit">
+            <p>
+              <a href={`manage/${device.id}`} class="edit-button">
+                Edit
+              </a>
+            </p>
+            <p>
+              <a href={`manage/remove/${device.id}`} class="remove-button">
+                Remove
+              </a>
+            </p>
+          </div>
+        </>
+      )
+    }
   </div>
 </div>
 
@@ -67,7 +83,12 @@ let loggedIn = Astro.cookies.has('loggedIn')
 
   hr {
     opacity: 25%;
-    margin: 1rem 0;
+    margin-block: .8rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+    opacity: 75%;
   }
 
   .ip-address {
@@ -119,6 +140,12 @@ let loggedIn = Astro.cookies.has('loggedIn')
     animation: fade-in-out 3s ease-in-out;
     animation-play-state: paused;
   }
+
+  .last-update {
+    font-size: 0.8rem;
+    opacity: 75%;
+  }
+
   @keyframes fade-in-out {
     0% {
       opacity: 0;
