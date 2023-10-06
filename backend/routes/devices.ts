@@ -35,12 +35,12 @@ router.post("/add", (req: Request, res: Response) => {
 
   try {
     db.prepare(query).run(
-      req.body.type.toLowerCase(),
-      req.body.ip_address.toLowerCase(),
-      req.body.name.toLowerCase(),
-      req.body.model.toLowerCase(),
-      req.body.url.toLowerCase(),
-      req.body.notes.toLowerCase(),
+      req.body.type.toLowerCase().trim(),
+      req.body.ip_address.toLowerCase().trim(),
+      req.body.name.toLowerCase().trim(),
+      req.body.model.toLowerCase().trim(),
+      req.body.url.toLowerCase().trim(),
+      req.body.notes.toLowerCase().trim(),
     );
     return res.status(200).json({
       success: true,
