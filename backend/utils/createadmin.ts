@@ -13,6 +13,15 @@ const options: Options = {
 const db = new Database("network.sqlite", options);
 db.pragma("journal_mode = WAL");
 
+function ensureAdminTableExists() {
+  const query = `CREATE TABLE IF NOT EXISTS admin (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    password TEXT
+  )`;
+  db.prepare(query).run();
+}
+
 function adminUserExists() {
   let adminUser;
   try {
@@ -25,10 +34,8 @@ function adminUserExists() {
 }
 
 export default function createAdmin() {
+  ensureAdminTableExists();
   if (adminUserExists()) {
-    return;
-  }
-  if (process.env.NODE_ENV === "dev") {
     return;
   }
   const query = "INSERT INTO admin (username, password) VALUES (?, ?)";
