@@ -28,12 +28,11 @@ devices.map((device: Device) => {
 ---
 
 <main class="container">
-  <h2>Devices</h2>
   <section>
     {
       Object.keys(seperatedDevices).map((type: string) => (
         <div>
-          <h3 class="capitalize">{type}</h3>
+          <h2 class="capitalize">{type}</h3>
           <div class="devicegrid">
             {seperatedDevices[type].map((device: Device) => (
               <DeviceCard device={device} />

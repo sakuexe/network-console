@@ -34,6 +34,8 @@ const { title, showFooter } = Astro.props
     --max-width: 1200px;
     --inline-padding: 2rem;
     --border-radius: 0.75rem;
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   }
   html {
     font-family: system-ui, sans-serif;
@@ -61,10 +63,10 @@ const { title, showFooter } = Astro.props
   header > * {
     margin: 0;
   }
-
   .container {
     width: min(var(--max-width), 100% - var(--inline-padding) * 2);
     margin-inline: auto;
+    min-width: 320px;
   }
   img {
     max-width: 100%;

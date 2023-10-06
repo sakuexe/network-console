@@ -26,10 +26,8 @@ if (Astro.cookies.has('loggedIn')) {
           </p>
         </div>
         <form action={API_URL} method="post">
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" />
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" />
+          <input type="text" name="username" id="username" placeholder="username" />
+          <input type="password" name="password" id="password" placeholder="password"/>
           <button type="submit">Login</button>
           <output></output>
         </form>
@@ -80,7 +78,8 @@ if (Astro.cookies.has('loggedIn')) {
   section {
     background: var(--primary-dark);
     width: 100%;
-    box-shadow: 0 6px 1rem var(--shadow-color);
+    box-shadow: var(--shadow-md);
+    padding-block: 2rem;
   }
 
   .container {
@@ -94,14 +93,12 @@ if (Astro.cookies.has('loggedIn')) {
     flex-direction: column;
     align-items: center;
     background: var(--primary-darker);
-    padding: 2rem;
     border-radius: var(--border-radius);
     margin: 0 auto;
   }
 
   input {
     margin-bottom: 1rem;
-    width: 100%;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     color: var(--secondary-dark);
@@ -124,7 +121,7 @@ if (Astro.cookies.has('loggedIn')) {
     cursor: pointer;
     font-size: 1rem;
     padding: 0.5rem 1rem;
-    width: min(100%, 10rem);
+    width: 100%;
   }
 
   @media (min-width: 600px) {

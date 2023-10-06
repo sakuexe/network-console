@@ -54,8 +54,10 @@ let loggedIn = Astro.cookies.has('loggedIn')
     background-color: var(--secondary-dark);
     border-radius: var(--border-radius);
     padding: var(--card-padding) calc(var(--card-padding) * 2);
-    box-shadow: 0 5px 0.8rem var(--shadow-color);
-    box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .card p,
