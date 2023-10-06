@@ -11,7 +11,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const frontendUrl = `${process.env.FRONTEND_URL}:${process.env.FRONTEND_PORT}`;
+const frontendUrl = `${process.env.FRONTEND_URL}:5000`;
 
 const router = express.Router();
 

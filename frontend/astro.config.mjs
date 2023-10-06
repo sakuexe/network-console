@@ -10,4 +10,9 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
+  outDir: 'dist',
+  server: {
+    port: 4321,
+    host: true,
+  },
 })

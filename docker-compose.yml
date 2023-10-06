@@ -1,0 +1,29 @@
+version: "3.6"
+
+services:
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    networks:
+      - docker-network
+    ports:
+      - "4321:4321"
+    environment:
+      - API_URL=http://backend:5000
+    depends_on:
+      - backend
+
+  backend:
+    container_name: backend
+    build: ./backend
+    networks:
+      - docker-network
+    ports:
+      - "5000:5000"
+    environment:
+      # make sure that this has the same value
+      # As the one in
+      - FRONTEND_URL=http://frontend:4321
+
+networks:
+  docker-network:

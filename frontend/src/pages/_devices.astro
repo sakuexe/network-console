@@ -1,9 +1,8 @@
 ---
 import DeviceCard from './_devicecard.astro'
 import getApiUrl from '../utils/apiurl.ts'
-const API_URL = getApiUrl()
-const response = await fetch(`${API_URL}/devices`)
-const devices = await response.json()
+const isDev = import.meta.env.DEV
+const API_URL = isDev ? 'http://localhost:5000' : import.meta.env.API_URL
 
 export type Device = {
   id: number
@@ -14,6 +13,15 @@ export type Device = {
   url: string | null
   last_update: string
   notes: string | null
+}
+
+let devices: Device[] = []
+
+try {
+  const response = await fetch(`${API_URL}/devices`)
+  devices = await response.json()
+} catch (error) {
+  console.error(error)
 }
 
 const seperatedDevices: Record<string, Device[]> = {}
@@ -27,26 +35,53 @@ devices.map((device: Device) => {
 })
 ---
 
-<main class="container">
-  <section>
-    {
-      Object.keys(seperatedDevices).map((type: string) => (
-        <div>
-          <h2 class="capitalize">{type}</h3>
-          <div class="devicegrid">
-            {seperatedDevices[type].map((device: Device) => (
-              <DeviceCard device={device} />
-            ))}
+{
+  devices.length < 1 ? (
+    <main class="container">
+      <header>
+        <h2>No devices found</h2>
+        <p>No connection to the backend</p>
+        <button>Reload?</button>
+      </header>
+    </main>
+  ) : (
+    <main class="container">
+      <section>
+        {Object.keys(seperatedDevices).map((type: string) => (
+          <div>
+            <h2 class="capitalize">{type}</h2>
+            <div class="devicegrid">
+              {seperatedDevices[type].map((device: Device) => (
+                <DeviceCard device={device} />
+              ))}
+            </div>
           </div>
-        </div>
-      ))
-    }
-  </section>
-</main>
+        ))}
+      </section>
+    </main>
+  )
+}
+
+<script>
+  document.querySelector('button')?.addEventListener('click', () => {
+    window.location.reload()
+  })
+</script>
 
 <style>
   :root {
     --card-padding: 1rem;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    background-color: var(--secondary-dark);
+    color: var(--primary-light);
+    font-size: 1rem;
+    cursor: pointer;
+    margin-block: 0.5rem;
   }
 
   .devicegrid {
@@ -54,5 +89,4 @@ devices.map((device: Device) => {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 1rem;
   }
-
 </style>

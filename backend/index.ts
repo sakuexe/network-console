@@ -9,7 +9,6 @@ import authRouter from "./routes/auth";
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT;
 
 // allow to parse json information from the request body
 app.use(express.json());
@@ -30,6 +29,6 @@ app.use("/devices", devicesRouter);
 
 app.use("/login", authRouter);
 
-app.listen(port, () => {
-  console.log(`[💾]: Server is running at http://localhost:${port}`);
+app.listen(5000, () => {
+  console.log(`[💾]: Server is running at http://localhost:5000`);
 });
