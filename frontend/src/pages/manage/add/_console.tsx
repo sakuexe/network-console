@@ -39,7 +39,7 @@ export default function AddDevice() {
   if (status?.success === true) {
     window.location.href = '/'
     return (
-      <main>
+      <main className="container">
         <output className="text-center">
           <p>{status?.message || 'Device added succesfully'}</p>
           <p>Redirecting...</p>
@@ -49,7 +49,7 @@ export default function AddDevice() {
   }
 
   return (
-    <main>
+    <main className="container">
       {status?.success === false && (
         <output>
           <p>
@@ -62,12 +62,27 @@ export default function AddDevice() {
           <label htmlFor="type">
             <abbr title="Required">*</abbr> Type:
           </label>
-          <input type="text" id="type" name="type" required />
+          <input
+            type="text"
+            id="type"
+            name="type"
+            list="device-types"
+            required
+          />
+          <datalist id="device-types">
+            <option value="Router" />
+            <option value="Switch" />
+            <option value="NAS" />
+            <option value="ePDU" />
+            <option value="Proxmox" />
+            <option value="Network console" />
+            <option value="Wlan" />
+          </datalist>
         </div>
 
         <div>
           <label htmlFor="name">
-            <abbr title="Required">*</abbr> Name:
+            <abbr title="Required">*</abbr> Name/Make/Hostname:
           </label>
           <input type="text" id="name" name="name" required />
         </div>

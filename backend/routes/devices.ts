@@ -35,12 +35,12 @@ router.post("/add", (req: Request, res: Response) => {
 
   try {
     db.prepare(query).run(
-      req.body.type.toLowerCase().trim(),
-      req.body.ip_address.toLowerCase().trim(),
-      req.body.name.toLowerCase().trim(),
-      req.body.model.toLowerCase().trim(),
-      req.body.url.toLowerCase().trim(),
-      req.body.notes.toLowerCase().trim(),
+      req.body.type.trim(),
+      req.body.ip_address.trim(),
+      req.body.name.trim(),
+      req.body.model.trim(),
+      req.body.url.trim(),
+      req.body.notes.trim(),
     );
     return res.status(200).json({
       success: true,
@@ -99,12 +99,12 @@ router
       WHERE id = ?`;
     try {
       db.prepare(query).run(
-        req.body.type,
-        req.body.ip_address,
-        req.body.name,
-        req.body.model,
-        req.body.url,
-        req.body.notes,
+        req.body.type.trim(),
+        req.body.ip_address.trim(),
+        req.body.name.trim(),
+        req.body.model.trim(),
+        req.body.url.trim(),
+        req.body.notes.trim(),
         deviceId,
       );
       res.status(200).json({
