@@ -1,3 +1,5 @@
+import getApiUrl from '../../utils/apiurl'
+
 type AuthResponse = {
   success: boolean
   message: string
@@ -5,11 +7,10 @@ type AuthResponse = {
 
 export default async function authenticateLogin(
   username: string,
-  password: string,
-  API_URL: string
+  password: string
 ): Promise<AuthResponse> {
   try {
-    const response = await fetch(`${API_URL}/login`, {
+    const response = await fetch(`${getApiUrl}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -24,6 +24,8 @@ services:
       # make sure that this has the same value
       # As the one in
       - FRONTEND_URL=http://frontend:4321
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin
 
 networks:
   docker-network:

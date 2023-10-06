@@ -1,7 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import getApiUrl from '../../utils/apiurl.ts'
-const API_URL = getApiUrl()
 let isLoggedIn = false
 
 if (Astro.cookies.has('loggedIn')) {
@@ -25,7 +23,7 @@ if (Astro.cookies.has('loggedIn')) {
             Return to the front page <a href="/">here</a>
           </p>
         </div>
-        <form action={API_URL} method="post">
+        <form>
           <input type="text" name="username" id="username" placeholder="username" />
           <input type="password" name="password" id="password" placeholder="password"/>
           <button type="submit">Login</button>
@@ -37,7 +35,6 @@ if (Astro.cookies.has('loggedIn')) {
 </Layout>
 
 <script>
-  import getApiUrl from '../../utils/apiurl.ts'
   import authenticateLogin from './authenticatelogin.ts'
 
   const form = document.querySelector('form')
@@ -48,7 +45,7 @@ if (Astro.cookies.has('loggedIn')) {
     const username: HTMLInputElement = document.querySelector('input#username')!
     const password: HTMLInputElement = document.querySelector('input#password')!
 
-    const response = await authenticateLogin(username.value, password.value, getApiUrl())
+    const response = await authenticateLogin(username.value, password.value)
 
     if (!response.success) {
       output.textContent = response.message
