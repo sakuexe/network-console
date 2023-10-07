@@ -7,10 +7,13 @@ services:
     networks:
       - docker-network
     ports:
-      - "4321:4321"
+      - "80:4321"
     environment:
-      - API_URL=http://backend:5000
-      - CLIENT_API_URL=http://localhost:5000
+      - API_URL=http://backend
+      # make sure that the port is the same
+      # as the one in the backend environment
+      # variable (PORT)
+      - API_PORT=5000
     depends_on:
       - backend
 
@@ -19,12 +22,12 @@ services:
     build: ./backend
     networks:
       - docker-network
-    ports:
-      - "5000:5000"
     environment:
       # make sure that this has the same value
-      # As the one in
-      - FRONTEND_URL=http://frontend:4321
+      # As the one in the frontend environment
+      # variable (API_PORT)
+      - PORT=5000
+      # choose the admin credentials here
       - ADMIN_USERNAME=admin
       - ADMIN_PASSWORD=admin
 

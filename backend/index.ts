@@ -7,6 +7,7 @@ import devicesRouter from "./routes/devices";
 import authRouter from "./routes/auth";
 
 dotenv.config();
+const PORT = process.env.PORT || 5000;
 
 const app: Express = express();
 
@@ -29,6 +30,6 @@ app.use("/devices", devicesRouter);
 
 app.use("/login", authRouter);
 
-app.listen(5000, () => {
-  console.log(`[💾]: Server is running at http://localhost:5000`);
+app.listen(PORT, () => {
+  console.log(`[💾]: Server is running at http://localhost:${PORT}`);
 });
