@@ -23,10 +23,11 @@ router.post("/add", (req: Request, res: Response) => {
   const db = new Database("network.sqlite", options);
   db.pragma("journal_mode = WAL");
 
+  console.log(req.body);
   if (!validateDevice(req.body)) {
     return res
       .status(401)
-      .json({ success: false, messsage: "Invalid device data" });
+      .json({ success: false, message: "Invalid device data" });
   }
 
   const query = `INSERT INTO device
@@ -64,11 +65,13 @@ router.post("/remove/:id", (req: Request, res: Response) => {
   const query = "DELETE FROM device WHERE id = ?";
   try {
     db.prepare(query).run(deviceId);
-    res.status(200).redirect(frontendUrl);
+    res
+      .status(200)
+      .json({ success: true, message: "Device removed successfully" });
   } catch (error) {
     res
       .status(500)
-      .redirect(frontendUrl + "manage/remove/" + deviceId + "?error=true");
+      .json({ success: false, message: "Error removing device from database" });
   } finally {
     db.close();
   }

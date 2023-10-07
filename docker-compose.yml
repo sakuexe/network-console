@@ -10,6 +10,7 @@ services:
       - "4321:4321"
     environment:
       - API_URL=http://backend:5000
+      - CLIENT_API_URL=http://localhost:5000
     depends_on:
       - backend
 

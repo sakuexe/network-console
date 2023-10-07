@@ -15,8 +15,7 @@ export default function ManagementConsole(props: DeviceProps) {
   const { deviceId, apiUrl } = props
 
   useEffect(() => {
-    console.log('fetching device')
-    fetchDevice(deviceId, apiUrl)
+    fetchDevice(deviceId)
       .then((device) => setDevice(device))
       .then(() => console.log(device))
       .finally(() => setIsLoading(false))
@@ -41,10 +40,10 @@ export default function ManagementConsole(props: DeviceProps) {
   )
 }
 
-async function fetchDevice(deviceId: number, apiUrl: string) {
+async function fetchDevice(deviceId: number) {
   let device: Device
   try {
-    const response = await fetch(`${apiUrl}/devices/${deviceId}`)
+    const response = await fetch(`/api/${deviceId}`)
     device = await response.json()
   } catch (error) {
     console.error(error)

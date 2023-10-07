@@ -1,10 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-let isLoggedIn = false
-
-if (Astro.cookies.has('loggedIn')) {
-  isLoggedIn = true
-}
+import getApiUrl from '../../utils/apiurl';
+const API_URL = getApiUrl()
 ---
 
 <Layout title="Login to network console">
@@ -23,7 +20,7 @@ if (Astro.cookies.has('loggedIn')) {
             Return to the front page <a href="/">here</a>
           </p>
         </div>
-        <form>
+        <form data-apiurl={API_URL}>
           <input type="text" name="username" id="username" placeholder="username" />
           <input type="password" name="password" id="password" placeholder="password"/>
           <button type="submit">Login</button>
@@ -36,7 +33,7 @@ if (Astro.cookies.has('loggedIn')) {
 
 <script>
   import authenticateLogin from './authenticatelogin.ts'
-
+  import getApiUrl from '../../utils/apiurl'
   const form = document.querySelector('form')
   const output = document.querySelector('form>output')!
 
@@ -45,7 +42,16 @@ if (Astro.cookies.has('loggedIn')) {
     const username: HTMLInputElement = document.querySelector('input#username')!
     const password: HTMLInputElement = document.querySelector('input#password')!
 
-    const response = await authenticateLogin(username.value, password.value)
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: username.value,
+        password: password.value
+      })
+    }).then(res => res.json())
 
     if (!response.success) {
       output.textContent = response.message

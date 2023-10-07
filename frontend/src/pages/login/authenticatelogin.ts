@@ -7,18 +7,20 @@ type AuthResponse = {
 
 export default async function authenticateLogin(
   username: string,
-  password: string
+  password: string,
+  apiUrl: string = getApiUrl()
 ): Promise<AuthResponse> {
   try {
-    const response = await fetch(`${getApiUrl}/login`, {
+    const response = await fetch(`${apiUrl}/login`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         username: username,
         password: password,
       }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': `*`,
+      },
     })
     return await response.json()
   } catch (error) {

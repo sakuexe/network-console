@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { Request, Response } from "express";
 import Database from "better-sqlite3";
 import { Options } from "better-sqlite3";
@@ -15,6 +16,7 @@ import createAdmin from "../utils/createadmin";
 createAdmin();
 
 const router = express.Router();
+router.use(cors());
 
 const options: Options = {
   verbose: console.log,
@@ -29,6 +31,8 @@ type LoginRequest = {
 
 // Login authentication
 router.post("/", (req: Request, res: Response) => {
+  res.setHeader("Content-Type", "application/json");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   // allow the dev user to login without a password
   // in development mode
   if (process.env.NODE_ENV === "dev" && req.body.username === "dev") {

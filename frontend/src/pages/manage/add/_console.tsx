@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import getApiUrl from '../../../utils/apiurl.ts'
 import '../_manage.css'
 
 type Response = {
@@ -9,21 +8,18 @@ type Response = {
 
 async function sendFormData(form: HTMLFormElement): Promise<Response> {
   const formData = Object.fromEntries(new FormData(form))
-  const apiUrl = getApiUrl()
   try {
-    const res = await fetch(`${apiUrl}/devices/add`, {
+    const res = await fetch(`/api/add`, {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: {
         'Content-Type': 'application/json',
       },
     })
-    if (!res.ok) {
-      return await res.json()
-    }
     return await res.json()
   } catch (e) {
-    return { success: false, message: "Couldn't connect to the server" }
+    console.error(e)
+    return { success: false, message: 'Internal server error (frontend)' }
   }
 }
 

@@ -3,5 +3,5 @@ export default function getApiUrl() {
   const prodUrl = process.env.API_URL
   return isDev
     ? 'http://localhost:5000'
-    : prodUrl || 'no env variable set (API_URL)'
+    : prodUrl || 'no env variable set for API_URL'
 }

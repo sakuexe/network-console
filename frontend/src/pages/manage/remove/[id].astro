@@ -1,84 +1,18 @@
 ---
 import Layout from '../../../layouts/Layout.astro'
-import getApiUrl from '../../../utils/apiurl.ts'
-import type { Device } from '../../_devices.astro'
+import DeviceInfo from './deviceinfo'
 
-const response = await fetch(`${getApiUrl()}/devices/${Astro.params.id}`)
-const device = (await response.json()) as Device
-
-const { name, model, ip_address, url, notes } = device
 const isLoggedIn = Astro.cookies.has('loggedIn')
-
-const last_update = new Date(device.last_update).toLocaleString('fi-FI')
 ---
 
-<Layout title={`Remove ${name}?`}>
-  {
-    !isLoggedIn ? (
-      <article>
-        <p class="text-center">
-          You are not logged in. Please <a href="/login">log in</a> to remove
-          the device.
-        </p>
-      </article>
-    ) : (
-      <section class="container">
-        <article>
-          <header>
-            <h1>Remove device?</h1>
-            <p class="last-updated">last updated: {last_update.split(' ')[0]}</p>
-          </header>
-          <div>
-            <p>Id:</p>
-            <p>{Astro.params.id}</p>
-          </div>
-          <div>
-            <p>Name/Make:</p>
-            <p>{name}</p>
-          </div>
-          <div>
-            <p>Model:</p>
-            <p>{model}</p>
-          </div>
-          <div>
-            <p>IP address:</p>
-            <p>{ip_address}</p>
-          </div>
-          {url && (
-            <div>
-              <p>URL:</p>
-              <p>{url}</p>
-            </div>
-          )}
-          {notes && (
-            <div>
-              <p>Notes:</p>
-              <p>{notes}</p>
-            </div>
-          )}
-          <form
-            action={`${getApiUrl()}/devices/remove/${Astro.params.id}`}
-            method="POST"
-          >
-            <button type="button">Cancel</button>
-            <button type="submit">Remove</button>
-          </form>
-        </article>
-      </section>
-    )
-  }
+<Layout title={`Remove device?`}>
+  <DeviceInfo client:idle deviceId={Astro.params.id || 0} isLoggedIn={isLoggedIn}/>
 </Layout>
 
-<script>
-  const cancelButton = document.querySelector('button[type="button"]')
-  cancelButton?.addEventListener('click', () => {
-    window.location.href = '/'
-  })
-</script>
-
-<style>
+<style is:inline>
   section {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100svh;
@@ -148,5 +82,9 @@ const last_update = new Date(device.last_update).toLocaleString('fi-FI')
     background-color: var(--secondary);
     color: var(--primary);
     flex-grow: 1;
+  }
+  output {
+    font-size: 1rem;
+    opacity: 0.75;
   }
 </style>
