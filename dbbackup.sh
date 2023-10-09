@@ -11,6 +11,5 @@ mkdir -p ./database/backup > /dev/null
 
 cp ./database/network.sqlite "./database/backup/network.sqlite.${date}"
 
-# q: how to color output?
-# a: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+# print success message and the absolute path to backup file
 echo "Backup created in: $purple$(pwd)/database/network.sqlite.$date $reset"
