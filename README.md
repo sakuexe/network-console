@@ -40,7 +40,7 @@ is the guide on how to customize and run the application.
 The application can be modified easily within the `docker-compose.yml` file.
 It should include all the necessary configurations for the application.
 
-#### Frontend
+#### **Frontend**
 
 Choose the outside port that you want to use for the application. The default
 is `80`. Only change the first value.
@@ -68,7 +68,7 @@ the frontend will use to access the backend. The default is `http://backend`.
 
 **Only change this value if you change the name of the backend container**
 
-#### Backend
+#### **Backend**
 
 The backend cannot be accessed from the outside. It is only accessible from
 within the docker network. Because of this, you really don't need to change
