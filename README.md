@@ -2,21 +2,22 @@
 
 Saku Karttunen - 10/2023
 
-**Table of contents:**
+## Table of contents:
 
 1. [About](/#About)
 
-- [Features](/#Features)
-- [Technologies used](/#Technologies-used)
+   1. [Features](/#Features)
+   2. [Technologies used](/#Technologies-used)
 
 2. [How to use](/#How-to-use)
 
-- [Configurations](/#Configurations)
-- [Running the application](/#Running-the-application)
+   1. [Configurations](/#Configurations)
+      - [Frontend](/#Frontend)
+      - [Backend](/#Backend)
+   2. [Running the application](/#Running-the-application)
 
 3. [Database backups](/#Database-backups)
-
-- [Restoring the database](/#Restoring-the-database)
+   1. [Restoring the database](/#Restoring-the-database)
 
 ## About
 
