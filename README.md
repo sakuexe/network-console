@@ -2,6 +2,22 @@
 
 Saku Karttunen - 10/2023
 
+**Table of contents:**
+
+1. [About](/#About)
+
+- [Features](/#Features)
+- [Technologies used](/#Technologies-used)
+
+2. [How to use](/#How-to-use)
+
+- [Configurations](/#Configurations)
+- [Running the application](/#Running-the-application)
+
+3. [Database backups](/#Database-backups)
+
+- [Restoring the database](/#Restoring-the-database)
+
 ## About
 
 This is assignment #3 for my Cloud services course. The assignment was to create
