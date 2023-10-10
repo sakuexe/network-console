@@ -16,7 +16,6 @@ import createAdmin from "../utils/createadmin";
 createAdmin();
 
 const router = express.Router();
-router.use(cors());
 
 const options: Options = {
   verbose: console.log,

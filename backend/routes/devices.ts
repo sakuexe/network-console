@@ -9,8 +9,6 @@ const router = express.Router();
 
 dotenv.config();
 
-const frontendUrl = `${process.env.FRONTEND_URL}:4321`;
-
 // add the options for the database
 // API docs: https://github.com/WiseLibs/better-sqlite3/blob/master/docs/api.md
 const options: Options = {

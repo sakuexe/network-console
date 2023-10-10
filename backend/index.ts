@@ -13,7 +13,6 @@ const app: Express = express();
 
 // allow to parse json information from the request body
 app.use(express.json());
-app.use(cors());
 
 // this is a way to use middleware for parsing request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
