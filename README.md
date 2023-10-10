@@ -15,9 +15,12 @@ Saku Karttunen - 10/2023
       - [Frontend](/#Frontend)
       - [Backend](/#Backend)
    2. [Running the application](/#Running-the-application)
+   3. [Client table](/#Client-table)
 
 3. [Database backups](/#Database-backups)
    1. [Restoring the database](/#Restoring-the-database)
+
+<br/>
 
 ## About
 
@@ -47,6 +50,8 @@ So make sure that you have docker installed.
 - Typescript
 - React.js
 
+<br/>
+
 ## How to use
 
 This application is basically managed entirely through docker-compose. Here
@@ -56,6 +61,8 @@ is the guide on how to customize and run the application.
 
 The application can be modified easily within the `docker-compose.yml` file.
 It should include all the necessary configurations for the application.
+
+<br/>
 
 #### **Frontend**
 
@@ -85,6 +92,8 @@ the frontend will use to access the backend. The default is `http://backend`.
 
 **Only change this value if you change the name of the backend container**
 
+<br/>
+
 #### **Backend**
 
 The backend cannot be accessed from the outside. It is only accessible from
@@ -113,6 +122,8 @@ environment:
   - API_PORT=5000
 ```
 
+<br/>
+
 ### Running the application
 
 ```bash
@@ -120,6 +131,8 @@ git clone https://github.com/sakuexe/network-console
 cd network-console
 docker-compose up
 ```
+
+<br/>
 
 ### Client table
 
@@ -156,6 +169,8 @@ other STDOUT tools.
 ```bash
 ./getclients.sh --today | grep "172.27.0.3"
 ```
+
+<br/>
 
 ## Database backups
 
