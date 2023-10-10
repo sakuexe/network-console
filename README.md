@@ -121,6 +121,35 @@ cd network-console
 docker-compose up
 ```
 
+### Client table
+
+Check which clients have connected to the main page. The table will show the
+IP address and timestamp of the connection.
+
+The table's name is client and is located in the same network.sqlite file as
+the devices and admin table.
+
+There is a handy script for getting all of the client data from the database.
+This script also can take in an argument of `--today` or `--yesterday`.
+
+```bash
+# give the script permissions
+chmod u+x ./getclients.sh
+# run the script
+./getclients.sh
+# or
+./getclients.sh --today
+```
+
+You can also choose the day by yourself. The date must be in the format of
+`YYYY-MM-DD`.
+
+```bash
+./getclients.sh --date 2023-10-10
+# or
+./getclients.sh --date $(date +%Y-%m-%d)
+```
+
 ## Database backups
 
 The database can be backed up by running the `dbbackup.sh` script. It will

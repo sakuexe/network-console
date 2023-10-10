@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import Database from "better-sqlite3";
 import { Options } from "better-sqlite3";
 import validateDevice from "../utils/validatedevice";
+import logClient from "../utils/logclient";
 
 const router = express.Router();
 
@@ -138,6 +139,7 @@ router.get("/", (req: Request, res: Response) => {
   db.pragma("journal_mode = WAL");
   // make the sql query here
   const row = db.prepare("SELECT * FROM device").all();
+  logClient(db, req.ip);
   db.close();
   res.status(200).json(row);
 });
