@@ -40,20 +40,17 @@ devices.map((device: Device) => {
       <header>
         <h2>No devices found</h2>
         <p>No connection to the backend</p>
-        <button>Reload?</button>
+        <button id="reload">Reload?</button>
       </header>
     </main>
   ) : (
     <main class="container">
       <section>
         {Object.keys(seperatedDevices).map((type: string) => (
-          <div>
-            <h2 class="capitalize">{type}</h2>
-            <div class="devicegrid">
-              {seperatedDevices[type].map((device: Device) => (
-                <DeviceCard device={device} />
-              ))}
-            </div>
+          <div class="devicegrid">
+            {seperatedDevices[type].map((device: Device) => (
+              <DeviceCard device={device} />
+            ))}
           </div>
         ))}
       </section>
@@ -62,7 +59,7 @@ devices.map((device: Device) => {
 }
 
 <script>
-  document.querySelector('button')?.addEventListener('click', () => {
+  document.querySelector('button#reload')?.addEventListener('click', () => {
     window.location.reload()
   })
 </script>
@@ -85,7 +82,8 @@ devices.map((device: Device) => {
 
   .devicegrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 2rem;
+    margin-bottom: 4rem;
   }
 </style>

@@ -1,5 +1,6 @@
 ---
 import { type Device } from './_devices.astro'
+import './_devicecard.css'
 
 interface Props {
   device: Device
@@ -13,175 +14,58 @@ const lastUpdate = new Date(device.last_update).toLocaleDateString('fi-FI')
 ---
 
 <div class="card">
-  <div>
-    <h4>{device.name}</h4>
-    <p>{device.model}</p>
+  <div class="device-type">
+    <p>{device.type}</p>
   </div>
-  <div>
-    <div class="ip-address">
-      <p>{device.ip_address}</p>
-      <button type="button" class="copy-button"
-        ><i class="bi bi-clipboard"></i></button
-      >
-      <p class="copy-notification">Copied to clipboard</p>
-    </div>
+  <div class="card-header">
+    <h3>{device.name}</h3>
+    <h4>{device.model}</h4>
+    {device.notes && <p class="notes">{device.notes || ''}</p>}
+    <p class="last-update">Last updated: {lastUpdate}</p>
+  </div>
+
+  <div class="card-body">
     {
       device.url && (
-        <a href={device.url} target="_blank" class="external-link">
-          {device.url} <i class="bi bi-box-arrow-up-right" />
+        <a href={device.url} target="_blank">
+          Dashboard >
         </a>
       )
     }
-    <hr />
-    {
-      device.notes && (
-        <>
-          <label for="notes">Additional notes:</label>
-          <p class="notes">{device.notes || ''}</p>
-        </>
-      )
-    }
-    <p class="last-update">Last updated: {lastUpdate}</p>
-    {
-      loggedIn && (
-        <>
-          <hr />
-          <div class="edit">
-            <p>
-              <a href={`manage/${device.id}`} class="edit-button">
-                Edit
-              </a>
-            </p>
-            <p>
-              <a href={`manage/remove/${device.id}`} class="remove-button">
-                Remove
-              </a>
-            </p>
-          </div>
-        </>
-      )
-    }
+    <div class="ip-address">
+      <button type="button"
+        ><i class="bi bi-clipboard"></i></button
+      >
+      <p>{device.ip_address}</p>
+    </div>
   </div>
+
+  {
+    loggedIn && (
+      <div class="card-footer">
+        <a href={`manage/${device.id}`} class="edit-button">
+          Edit
+        </a>
+        <div class="divider" />
+        <a href={`manage/remove/${device.id}`} class="remove-button">
+          Remove
+        </a>
+      </div>
+    )
+  }
 </div>
-
-<style>
-  .card {
-    color: var(--primary);
-    background-color: var(--secondary-dark);
-    border-radius: var(--border-radius);
-    padding: var(--card-padding) calc(var(--card-padding) * 2);
-    box-shadow: var(--shadow-md);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .card p,
-  .card h4 {
-    margin: 0;
-  }
-
-  hr {
-    opacity: 25%;
-    margin-block: .8rem;
-  }
-
-  label {
-    font-size: 0.9rem;
-    opacity: 75%;
-  }
-
-  .ip-address {
-    position: relative;
-    display: flex;
-    width: fit-content;
-    align-items: center;
-    column-gap: 0.25rem;
-  }
-
-  .edit {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 1rem;
-  }
-
-  .edit > p {
-    text-align: center;
-  }
-
-  .edit a {
-    color: var(--primary-light);
-    font-size: 1rem;
-    opacity: 75%;
-    padding-block: 1rem;
-  }
-
-  .copy-button {
-    border: none;
-    cursor: pointer;
-    background-color: transparent;
-    color: var(--primary);
-    aspect-ratio: 1/1;
-    opacity: 75%;
-  }
-
-  .copy-notification {
-    position: absolute;
-    top: 0;
-    left: 110%;
-    transform: translateY(-0.5rem);
-    width: 100%;
-    font-size: 0.75rem;
-    border-radius: var(--border-radius);
-    padding: 0.25rem 0.5rem;
-    cursor: default;
-    pointer-events: none;
-    opacity: 0;
-    animation: fade-in-out 3s ease-in-out;
-    animation-play-state: paused;
-  }
-
-  .notes {
-    white-space: pre-wrap;
-    line-height: 1.25;
-  }
-
-  .last-update {
-    font-size: 0.8rem;
-    opacity: 75%;
-  }
-
-  @keyframes fade-in-out {
-    0% {
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-</style>
 
 <script>
   const buttons: NodeListOf<HTMLButtonElement> =
-    document.querySelectorAll('.copy-button')
+    document.querySelectorAll('.card-body button')
   buttons.forEach((button) => {
-    const ipAddress = button.previousElementSibling as HTMLElement
-    const notification = button.nextElementSibling as HTMLElement
+    const ipAddress = button.nextElementSibling as HTMLElement
+    const notification = button.lastElementChild as HTMLElement
     const buttonIcon = button.firstElementChild as HTMLElement
 
     // Copy IP address to clipboard
     button.addEventListener('click', () => {
-      if (!ipAddress) return
-      notification.style.animationPlayState = 'running'
       navigator.clipboard.writeText(ipAddress.textContent || '')
-      if (!buttonIcon) return
-      buttonIcon.classList.replace('bi-clipboard', 'bi-clipboard-check')
     })
 
     // Reset button icon after animation ends
