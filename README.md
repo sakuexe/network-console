@@ -150,6 +150,13 @@ You can also choose the day by yourself. The date must be in the format of
 ./getclients.sh --date $(date +%Y-%m-%d)
 ```
 
+And of course, you can also parse the output of the script with `grep` or
+other STDOUT tools.
+
+```bash
+./getclients.sh --today | grep "172.27.0.3"
+```
+
 ## Database backups
 
 The database can be backed up by running the `dbbackup.sh` script. It will
