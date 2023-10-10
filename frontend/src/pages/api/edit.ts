@@ -1,13 +1,22 @@
 import getApiUrl from '../../utils/apiurl'
 
-type DeviceRequest = {
-  params: {
-    device_id: string
-  }
-  request: Request
+type APIResponse = {
+  message: string
+  error?: string
 }
 
-export async function GET(props: DeviceRequest) {
+type Device = {
+  id: number
+  type: 'router' | 'switch' | string
+  ip_address: string
+  name: string
+  model: string | null
+  url: string | null
+  last_update: string
+  notes: string | null
+}
+
+export async function POST({ request }: { request: Request }) {
   // using Astro's endpoint for contacting the server
   // this is done so that the server can be contacted from the client
   // without having to worry about CORS and without
@@ -19,11 +28,12 @@ export async function GET(props: DeviceRequest) {
   //
   // in my defense, this was the first time working
   // with Astro SSR, haha
-  const { device_id } = props.params
-  let device
+  const formData: Device = await request.json()
+  let apiResponse: APIResponse
   try {
-    device = await fetch(`${getApiUrl()}/devices/${device_id}`, {
-      method: 'GET',
+    apiResponse = await fetch(`${getApiUrl()}/devices/${formData.id}`, {
+      method: 'POST',
+      body: JSON.stringify(formData),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -36,5 +46,6 @@ export async function GET(props: DeviceRequest) {
     })
   }
 
-  return new Response(JSON.stringify(device))
+  if (apiResponse.error) console.error(apiResponse.error)
+  return new Response(JSON.stringify(apiResponse))
 }

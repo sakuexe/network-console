@@ -12,14 +12,13 @@ export default function ManagementConsole(props: DeviceProps) {
   const [device, setDevice] = useState<Device>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  const { deviceId, apiUrl } = props
+  const { deviceId } = props
 
   useEffect(() => {
     fetchDevice(deviceId)
       .then((device) => setDevice(device))
-      .then(() => console.log(device))
       .finally(() => setIsLoading(false))
-  }, [deviceId, apiUrl])
+  }, [deviceId])
 
   return (
     <main>
@@ -29,7 +28,7 @@ export default function ManagementConsole(props: DeviceProps) {
             <h2 className="capitalize text-center">{device.name}</h2>
             <p className="text-center">{device.model}</p>
           </header>
-          <DeviceInfo device={device} apiUrl={apiUrl} />
+          <DeviceInfo device={device} />
         </>
       ) : isLoading ? (
         <p>Loading...</p>

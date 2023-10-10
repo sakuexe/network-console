@@ -3,11 +3,10 @@ import type { Device } from '../../_devices.astro'
 
 type DeviceInfoProps = {
   device: Device
-  apiUrl: string
 }
 
 export default function DeviceInfo(props: DeviceInfoProps) {
-  const { device, apiUrl } = props
+  const { device } = props
 
   const [formData, setFormData] = useState(device)
   const [status, setStatus] = useState('')
@@ -21,14 +20,10 @@ export default function DeviceInfo(props: DeviceInfoProps) {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(JSON.stringify(formData))
     try {
-      const res = await fetch(`${apiUrl}/devices/${device.id}`, {
+      const res = await fetch(`/api/edit`, {
         method: 'POST',
         body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
       })
       if (res.ok) {
         const data = await res.json()
@@ -40,11 +35,7 @@ export default function DeviceInfo(props: DeviceInfoProps) {
   }
 
   return (
-    <form
-      action={`${apiUrl}/devices/${device.id}`}
-      method="POST"
-      onSubmit={handleSubmit}
-    >
+    <form onSubmit={handleSubmit}>
       <output>
         {status && <p className={status ? 'success' : 'error'}>{status}</p>}
       </output>

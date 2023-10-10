@@ -102,6 +102,8 @@ router
     db.pragma("journal_mode = WAL");
     // modify the device data
     const deviceId = req.params.id;
+    console.log(deviceId);
+    console.log(req.body);
     // prepare the query to prevent SQL injection
     const query = `UPDATE device 
       SET type = ? ,
@@ -123,7 +125,6 @@ router
       );
       res.status(200).json({
         message: "Device information updated successfully",
-        form: req.body,
       });
     } catch (error) {
       res
