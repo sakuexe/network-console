@@ -76,19 +76,17 @@ export default function DeviceInfo(props: DeviceInfoProps) {
 
   // device found
   return (
-    <section className="container">
+    <section>
+      <header>
+        <h1>Remove device?</h1>
+        <p className="last-updated">last updated: {device.last_update}</p>
+      </header>
       <article>
-        <header>
-          <h1>Remove device?</h1>
-          <p className="last-updated">last updated: {device.last_update}</p>
-        </header>
-        <div>
-          <p>Id:</p>
+        <div className="id">
           <p>{device.id}</p>
-        </div>
-        <div>
-          <p>Name/Make:</p>
-          <p>{device.name}</p>
+          <p>
+            {device.name} <span>Wlan</span>
+          </p>
         </div>
         {device.model && (
           <div>
@@ -101,7 +99,7 @@ export default function DeviceInfo(props: DeviceInfoProps) {
           <p>{device.ip_address}</p>
         </div>
         {device.url && (
-          <div>
+          <div className="full">
             <p>URL:</p>
             <p>{device.url}</p>
           </div>

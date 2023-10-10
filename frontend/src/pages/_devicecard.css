@@ -1,6 +1,6 @@
 :root {
-  --card-padding-inline: 0.5rem;
-  --card-padding-block: 0.2rem;
+  --card-padding-inline: 0.8rem;
+  --card-padding-block: 0.5rem;
 }
 .card {
   background-color: var(--primary-light);
@@ -8,7 +8,7 @@
   border: 2px solid var(--secondary-dark);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .card > div {
@@ -67,6 +67,15 @@ hr {
   text-decoration: none;
 }
 
+.notes {
+  line-height: 1.25;
+}
+
+.last-update {
+  font-size: 0.8rem;
+  opacity: 75%;
+}
+
 .ip-address {
   padding: var(--card-padding-block) var(--card-padding-inline);
   position: relative;
@@ -74,8 +83,6 @@ hr {
   gap: 0.2rem;
   align-items: center;
   justify-content: end;
-  animation: fade-in-out 3s ease-in-out;
-  animation-play-state: paused;
 }
 
 .ip-address > p {
@@ -100,7 +107,6 @@ hr {
 }
 
 .card-footer > div {
-  width: 2px;
   height: 100%;
   border: 1px solid var(--secondary-dark);
 }
@@ -127,29 +133,4 @@ button {
   cursor: pointer;
   background-color: transparent;
   aspect-ratio: 1/1;
-}
-
-.notes {
-  white-space: pre-wrap;
-  line-height: 1.25;
-}
-
-.last-update {
-  font-size: 0.8rem;
-  opacity: 75%;
-}
-
-@keyframes fade-in-out {
-  0% {
-    background-color: transparent;
-  }
-  10% {
-    background-color: var(--secondary);
-  }
-  90% {
-    background-color: var(--secondary);
-  }
-  100% {
-    background-color: transparent;
-  }
 }

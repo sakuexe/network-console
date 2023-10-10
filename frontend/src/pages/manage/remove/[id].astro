@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro'
 import DeviceInfo from './deviceinfo'
+import './remove.css'
 
 const isLoggedIn = Astro.cookies.has('loggedIn')
 ---
@@ -8,83 +9,3 @@ const isLoggedIn = Astro.cookies.has('loggedIn')
 <Layout title={`Remove device?`}>
   <DeviceInfo client:idle deviceId={Astro.params.id || 0} isLoggedIn={isLoggedIn}/>
 </Layout>
-
-<style is:inline>
-  section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100svh;
-  }
-  article {
-    width: min(100%, 400px);
-    background-color: var(--primary);
-    border-radius: var(--border-radius);
-    padding: 1rem 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    box-shadow: var(--shadow-md);
-  }
-  article > h1,
-  article > p {
-    margin: 0;
-    line-height: 1;
-  }
-  article > div > p {
-    margin: 0;
-  }
-  article > div::after {
-    content: '';
-    width: 100%;
-    border-bottom: 1px solid var(--secondary);
-    opacity: 0.25;
-  }
-  article > div {
-    display: flex;
-    flex-direction: column;
-  }
-  article > div > p:first-child {
-    font-size: 1rem;
-  }
-  article > div > p:last-child {
-    font-weight: bold;
-  }
-  .last-updated {
-    font-size: 1rem;
-    opacity: 0.75;
-    margin: 0;
-  }
-  article > form {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 2rem;
-  }
-  article > form > button {
-    border: none;
-    border-radius: calc(var(--border-radius) / 2);
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.25s ease-in-out;
-  }
-  article > form > button:hover {
-    box-shadow: var(--shadow-lg);
-    scale: 1.05;
-  }
-  article > form > button:first-child {
-    background-color: transparent;
-    color: var(--secondary);
-    border: 1px solid var(--secondary);
-  }
-  article > form > button:last-child {
-    background-color: var(--secondary);
-    color: var(--primary);
-    flex-grow: 1;
-  }
-  output {
-    font-size: 1rem;
-    opacity: 0.75;
-  }
-</style>

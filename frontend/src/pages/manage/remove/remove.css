@@ -1,0 +1,96 @@
+:root {
+  --card-padding-inline: 0.8rem;
+  --card-padding-block: 0.5rem;
+}
+
+.last-updated {
+  font-size: 1rem;
+  opacity: 0.75;
+  margin: 0;
+}
+
+article {
+  width: min(100%, 600px);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--secondary-dark);
+  box-shadow: 0.8rem 0.8rem 0 var(--secondary-dark);
+}
+
+article > div:not(.id) {
+  padding: var(--card-padding-block) var(--card-padding-inline);
+  display: flex;
+  flex-direction: column;
+}
+
+article > div:not(.id) > p:first-child {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+article > div > p {
+  margin: 0;
+}
+
+article > div.id {
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+article > div.id > p:first-child {
+  background-color: var(--secondary-dark);
+  color: var(--primary-light);
+  padding: 0.2rem 1.5rem;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+article > div.id > p:last-child {
+  font-size: 1.25rem;
+  padding: 0.2rem 1rem;
+}
+
+article > div.id > p > span {
+  font-weight: 400;
+  font-size: 1rem;
+  padding-left: 0.5rem;
+}
+
+article > form {
+  display: flex;
+  border-top: 2px solid var(--secondary-dark);
+}
+
+article > form > button {
+  border: none;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+article > form > button:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+article > form > button:first-child {
+  background-color: transparent;
+  color: var(--secondary);
+  color: var(--secondary-dark);
+  flex-grow: 1;
+}
+
+article > form > button:last-child {
+  background-color: var(--secondary-dark);
+  color: var(--primary-light);
+  flex-grow: 1;
+}
+
+output {
+  font-size: 1rem;
+  opacity: 0.75;
+}
