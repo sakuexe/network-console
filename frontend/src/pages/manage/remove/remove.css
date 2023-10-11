@@ -12,16 +12,29 @@
 article {
   width: min(100%, 600px);
   margin-inline: auto;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   border: 2px solid var(--secondary-dark);
   box-shadow: 0.8rem 0.8rem 0 var(--secondary-dark);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+article:hover {
+  box-shadow: 1.2rem 1.2rem 0 var(--secondary-dark);
+}
+
+article > div.id,
+article > div:nth-last-child(3),
+article > div:nth-last-child(2),
+article > form {
+  grid-column: 1 / -1;
 }
 
 article > div:not(.id) {
   padding: var(--card-padding-block) var(--card-padding-inline);
   display: flex;
   flex-direction: column;
+  border-bottom: 2px solid var(--secondary-dark);
 }
 
 article > div:not(.id) > p:first-child {
@@ -63,7 +76,7 @@ article > div.id > p > span {
 
 article > form {
   display: flex;
-  border-top: 2px solid var(--secondary-dark);
+  width: 100%;
 }
 
 article > form > button {
@@ -71,10 +84,7 @@ article > form > button {
   padding: 0.8rem 1rem;
   font-size: 1rem;
   cursor: pointer;
-}
-
-article > form > button:hover {
-  box-shadow: var(--shadow-lg);
+  transition: all 0.2s ease-in-out;
 }
 
 article > form > button:first-child {
@@ -84,10 +94,19 @@ article > form > button:first-child {
   flex-grow: 1;
 }
 
+article > form > button:first-child:hover {
+  background-color: var(--secondary-dark);
+  color: var(--primary-light);
+}
+
 article > form > button:last-child {
   background-color: var(--secondary-dark);
   color: var(--primary-light);
   flex-grow: 1;
+}
+
+article > form > button:last-child:hover {
+  color: var(--secondary);
 }
 
 output {
