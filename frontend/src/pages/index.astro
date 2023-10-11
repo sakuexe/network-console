@@ -23,7 +23,7 @@ try {
     return
   }
   const localData = await localResponse.json()
-  localIp = localData.ip
+  localIp = localData.ip.split(':').pop()
   } catch (error) {
     console.error(error)
   }
