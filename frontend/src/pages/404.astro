@@ -12,12 +12,12 @@ import Layout from '../layouts/Layout.astro'
         <button type="button">Secret</button>
       </form>
       <output>
-        <img src="/secreticon.png" alt="korok seed" width="25">
+        <img src="/secreticon.png" alt="korok seed" width="25" />
         <p>1</p>
       </output>
     </article>
     <section>
-      <img src="/secret.png" alt="Korok" />
+      <img src="/secret.webp" alt="Korok" />
       <div>
         <div id="name">Korok</div>
         <p>Yahaha! You found me!</p>
@@ -29,30 +29,32 @@ import Layout from '../layouts/Layout.astro'
 <script>
   const secretSound = new Audio('/secret.mp3')
   const byeSound = new Audio('/bye.mp3')
-  const secret = document.querySelector('section')
-  const output = document.querySelector('output')
+  const secret = document.querySelector('section')!
+  const output = document.querySelector('output')!
   secretSound.volume = 0.5
   byeSound.volume = 0.5
   console.log('Okay you found me, but there is nothing to see here still...')
-  document
-    .querySelector('button[type="button"]')
-    .addEventListener('click', () => {
+  document.querySelector('button[type="button"]')!.addEventListener(
+    'click',
+    () => {
       secretSound.play()
-      secret.style.opacity = "1"
-      secret.style.transform = "translate(0, -20%)"
-      document.querySelector('section > div').addEventListener('click', () => {
+      secret.style.opacity = '1'
+      secret.style.transform = 'translate(0, -20%)'
+      document.querySelector('section > div')?.addEventListener('click', () => {
         byeSound.play()
-        secret.style.opacity = "0"
-        secret.style.transform = "translate(0, 100%)"
-        secret.style.pointerEvents = "none"
+        secret.style.opacity = '0'
+        secret.style.transform = 'translate(0, 100%)'
+        secret.style.pointerEvents = 'none'
         // wait for animation to end and then remove the element
         setTimeout(() => {
           secret.remove()
-          output.style.opacity = "1"
-          output.style.transform = "translate(0, 0)"
+          output.style.opacity = '1'
+          output.style.transform = 'translate(0, 0)'
         }, 500)
       })
-    }, { once: true })
+    },
+    { once: true }
+  )
 </script>
 
 <style>
@@ -74,7 +76,7 @@ import Layout from '../layouts/Layout.astro'
     animation: bounce 2s ease-in-out infinite;
     filter: drop-shadow(0 0.5rem 0.8rem #0000005f);
   }
-  
+
   section > div {
     position: relative;
     display: flex;
