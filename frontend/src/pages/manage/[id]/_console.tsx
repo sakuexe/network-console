@@ -25,8 +25,11 @@ export default function ManagementConsole(props: DeviceProps) {
       {device ? (
         <>
           <header>
-            <h2 className="capitalize text-center">{device.name}</h2>
-            <p className="text-center">{device.model}</p>
+            <h2 className="capitalize text-center">Edit device</h2>
+            <p className="text-center">
+              Last updated:{' '}
+              {new Date(device.last_update).toLocaleDateString('fi-FI')}
+            </p>
           </header>
           <DeviceInfo device={device} />
         </>

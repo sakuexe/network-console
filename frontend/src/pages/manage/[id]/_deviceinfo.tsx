@@ -41,6 +41,10 @@ export default function DeviceInfo(props: DeviceInfoProps) {
       </output>
 
       <div>
+        <h3 className="text-center capitalize">{formData.name}</h3>
+      </div>
+
+      <div>
         <label htmlFor="type">Type:</label>
         <input
           type="text"
@@ -50,7 +54,6 @@ export default function DeviceInfo(props: DeviceInfoProps) {
           onChange={(event) => handleOnChange(event.target)}
         />
       </div>
-
       <div>
         <label htmlFor="name">Name:</label>
         <input
@@ -100,11 +103,12 @@ export default function DeviceInfo(props: DeviceInfoProps) {
         <textarea
           id="notes"
           name="notes"
-          rows={4}
+          rows={2}
           defaultValue={formData.notes}
           onChange={(event) => handleOnChange(event.target)}
         ></textarea>
       </div>
+
       <div className="buttons">
         <a href="/">Return</a>
         <button type="submit">Submit Changes</button>
