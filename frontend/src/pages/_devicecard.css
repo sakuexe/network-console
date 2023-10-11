@@ -80,8 +80,9 @@ hr {
   color: var(--primary-dark);
 }
 
-.card-body > a > i {
+.card-body i {
   font-size: 0.7rem;
+  color: var(--secondary-dark);
 }
 
 .notes {

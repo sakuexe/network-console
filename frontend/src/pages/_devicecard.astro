@@ -60,18 +60,15 @@ const lastUpdate = new Date(device.last_update).toLocaleDateString('fi-FI')
     document.querySelectorAll('.card-body button')
   buttons.forEach((button) => {
     const ipAddress = button.nextElementSibling as HTMLElement
-    const notification = button.lastElementChild as HTMLElement
     const buttonIcon = button.firstElementChild as HTMLElement
 
     // Copy IP address to clipboard
     button.addEventListener('click', () => {
       navigator.clipboard.writeText(ipAddress.textContent || '')
-    })
-
-    // Reset button icon after animation ends
-    notification.addEventListener('animationend', () => {
-      if (!buttonIcon) return
-      buttonIcon.classList.replace('bi-clipboard-check', 'bi-clipboard')
+      buttonIcon.classList.replace('bi-clipboard', 'bi-clipboard-check')
+      setTimeout(() => {
+        buttonIcon.classList.replace('bi-clipboard-check', 'bi-clipboard')
+      }, 3000)
     })
   })
 </script>

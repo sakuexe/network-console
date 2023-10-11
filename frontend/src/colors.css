@@ -12,3 +12,11 @@
   --secondary-dark: #11355a;
   --shadow-color: #2328482f;
 }
+
+/* prefers dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-light: #212429;
+    --secondary-dark: #c1e4fc;
+  }
+}

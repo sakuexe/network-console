@@ -1,0 +1,205 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="404">
+  <main>
+    <article>
+      <p>404</p>
+      <h1>Nothing to see here</h1>
+      <form action="/" method="GET">
+        <button type="submit">Return</button>
+        <button type="button">Secret</button>
+      </form>
+      <output>
+        <img src="/secreticon.png" alt="korok seed" width="25">
+        <p>1</p>
+      </output>
+    </article>
+    <section>
+      <img src="/secret.png" alt="Korok" />
+      <div>
+        <div id="name">Korok</div>
+        <p>Yahaha! You found me!</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  const secretSound = new Audio('/secret.mp3')
+  const byeSound = new Audio('/bye.mp3')
+  const secret = document.querySelector('section')
+  const output = document.querySelector('output')
+  secretSound.volume = 0.5
+  byeSound.volume = 0.5
+  console.log('Okay you found me, but there is nothing to see here still...')
+  document
+    .querySelector('button[type="button"]')
+    .addEventListener('click', () => {
+      secretSound.play()
+      secret.style.opacity = "1"
+      secret.style.transform = "translate(0, -20%)"
+      document.querySelector('section > div').addEventListener('click', () => {
+        byeSound.play()
+        secret.style.opacity = "0"
+        secret.style.transform = "translate(0, 100%)"
+        secret.style.pointerEvents = "none"
+        // wait for animation to end and then remove the element
+        setTimeout(() => {
+          secret.remove()
+          output.style.opacity = "1"
+          output.style.transform = "translate(0, 0)"
+        }, 500)
+      })
+    }, { once: true })
+</script>
+
+<style>
+  section {
+    position: absolute;
+    inset: 0px;
+    margin: auto;
+    width: min(100%, 30rem);
+    aspect-ratio: 16/9;
+    padding: 2rem;
+    transition: all 0.5s ease-in-out;
+    transition-delay: 0.2s;
+    transform: translate(0, 100%);
+    opacity: 0;
+  }
+
+  section > img {
+    margin-inline: auto;
+    animation: bounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 0.5rem 0.8rem #0000005f);
+  }
+  
+  section > div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    background-color: #030303aa;
+    color: #fff;
+    width: 90%;
+    margin-inline: auto;
+    padding: 1rem;
+    border-radius: 3rem;
+    margin-top: -4rem;
+    cursor: pointer;
+    box-shadow: 0 0.5rem 1rem #0000005f;
+  }
+
+  section > div::after {
+    --triangle-size: 0.8rem;
+    content: ' ';
+    border-top: var(--triangle-size) solid white;
+    border-left: calc(var(--triangle-size) * 0.8) solid transparent;
+    border-right: calc(var(--triangle-size) * 0.8) solid transparent;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    opacity: 0.5;
+    cursor: pointer;
+  }
+
+  #name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(90%, -50%);
+    font-size: 1rem;
+  }
+
+  section > div > p:not(#name) {
+    text-align: center;
+    font-style: italic;
+  }
+
+  article {
+    overflow: hidden;
+  }
+
+  output {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.2rem;
+    opacity: 0;
+    transform: translate(-100%, 0);
+    user-select: none;
+    transition: all 0.5s ease-in-out;
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(0, 0.5rem);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+</style>
+
+<style>
+  main {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p {
+    margin: 0;
+    line-height: 1;
+  }
+
+  form {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    border: 2px solid var(--secondary-dark);
+  }
+
+  form > button {
+    border: none;
+    background: none;
+    outline: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 1.125rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease-in-out;
+  }
+
+  form > button:first-child {
+    flex-grow: 1;
+    background: var(--secondary-dark);
+    color: var(--primary-light);
+    border-right: 2px solid var(--secondary-dark);
+  }
+
+  form > button:first-child:hover {
+    background: var(--primary-light);
+    color: var(--secondary-dark);
+  }
+
+  form > button:last-child:hover {
+    background: var(--secondary-dark);
+    color: var(--primary-light);
+  }
+</style>

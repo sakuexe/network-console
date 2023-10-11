@@ -77,7 +77,6 @@ const API_URL = getApiUrl()
   }
 
   section {
-    background: var(--primary-dark);
     width: 100%;
     box-shadow: var(--shadow-md);
     padding-block: 2rem;
@@ -107,6 +106,7 @@ const API_URL = getApiUrl()
     color: var(--secondary-dark);
     border: 2px solid var(--secondary-dark);
     outline: none;
+    background: transparent;
   }
 
   output {
@@ -123,6 +123,10 @@ const API_URL = getApiUrl()
     font-size: 1rem;
     padding: 0.5rem 1rem;
     width: 100%;
+  }
+  
+  a {
+    color: inherit;
   }
 
   @media (min-width: 600px) {

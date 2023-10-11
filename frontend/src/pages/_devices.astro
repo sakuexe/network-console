@@ -33,6 +33,8 @@ devices.map((device: Device) => {
   }
   seperatedDevices[type].push(device)
 })
+
+const isLoggedIn = Astro.cookies.get('loggedIn')?.value === 'true'
 ---
 
 {
@@ -46,12 +48,25 @@ devices.map((device: Device) => {
     </main>
   ) : (
     <main class="container">
-      <div class="typelist">
-        {Object.keys(seperatedDevices).map((type: string) => (
-          <a href={`#${type.toLowerCase()}`} class="capitalize")>
-            {type}<span> ({seperatedDevices[type].length}</span>
-          </a>
-        ))}
+      <div class="menu">
+
+        <div class="typelist">
+          {Object.keys(seperatedDevices).map((type: string) => (
+            <a href={`#${type.toLowerCase()}`} class="capitalize")>
+              {type}<span>{seperatedDevices[type].length}</span>
+            </a>
+          ))}
+        </div>
+
+        <div class="actions">
+          {isLoggedIn ? (
+            <a id="logout"><i class="bi bi-box-arrow-left"></i> Log out</a>
+          ) : (
+            <a href="/login"><i class="bi bi-box-arrow-in-right"></i> Log in</a>
+          )}
+          <a href="/manage/add"><i class="bi bi-database-add"></i> Add a device</a>
+        </div>
+
       </div>
       <section>
         {Object.keys(seperatedDevices).map((type: string) => (
@@ -68,6 +83,10 @@ devices.map((device: Device) => {
 
 <script>
   document.querySelector('button#reload')?.addEventListener('click', () => {
+    window.location.reload()
+  })
+  document.querySelector('a#logout')?.addEventListener('click', () => {
+    document.cookie = 'loggedIn=false; path=/;'
     window.location.reload()
   })
 </script>
