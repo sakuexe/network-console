@@ -88,28 +88,27 @@ export default function DeviceInfo(props: DeviceInfoProps) {
             {device.name} <span>Wlan</span>
           </p>
         </div>
-        {device.model && (
-          <div>
-            <p>Model:</p>
-            <p>{device.model}</p>
-          </div>
-        )}
+
+        <div>
+          <p>Model:</p>
+          <p>{device.model || '-'}</p>
+        </div>
+
         <div>
           <p>IP address:</p>
           <p>{device.ip_address}</p>
         </div>
-        {device.url && (
-          <div className="full">
-            <p>URL:</p>
-            <p>{device.url}</p>
-          </div>
-        )}
-        {device.notes && (
-          <div>
-            <p>Notes:</p>
-            <p>{device.notes}</p>
-          </div>
-        )}
+
+        <div className="full">
+          <p>URL:</p>
+          <p>{device.url || '-'}</p>
+        </div>
+
+        <div>
+          <p>Notes:</p>
+          <p>{device.notes || '-'}</p>
+        </div>
+
         <form onSubmit={(event) => handleSubmit(event, device.id, setMessage)}>
           <button
             type="button"

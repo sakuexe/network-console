@@ -80,7 +80,14 @@ hr {
   color: var(--primary-dark);
 }
 
-.card-body i {
+/* dashboard arrow icon */
+.card-body > a:first-child > i {
+  font-size: 0.8rem;
+  color: var(--primary-light);
+}
+
+/* ip copy icon */
+.ip-address > button > i {
   font-size: 0.7rem;
   color: var(--secondary-dark);
 }
