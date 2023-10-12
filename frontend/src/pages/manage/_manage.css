@@ -63,6 +63,7 @@ form > div:nth-last-child(3) {
 }
 
 form label {
+  padding-inline: 0.5rem;
   font-size: 1rem;
   color: var(--secondary-dark);
   opacity: 75%;
@@ -97,6 +98,8 @@ form .buttons > * {
   font-size: 1rem;
   font-family: inherit;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-underline-offset: 0rem;
 }
 
 form .buttons > *:first-child {
@@ -112,7 +115,13 @@ form .buttons > *:last-child {
   flex-grow: 1;
 }
 
-.secondary {
+form .buttons > *:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.explanation {
+  text-align: center;
   font-size: 1rem;
   opacity: 75%;
 }

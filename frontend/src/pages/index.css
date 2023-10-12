@@ -78,6 +78,11 @@
   margin-bottom: 4rem;
 }
 
+/* failed page */
+main > div > a {
+  color: inherit;
+}
+
 @media (min-width: 1200px) {
   .container {
     grid-template-columns: 5fr 1fr;

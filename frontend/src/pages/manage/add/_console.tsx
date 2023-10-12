@@ -25,6 +25,7 @@ async function sendFormData(form: HTMLFormElement): Promise<Response> {
 
 export default function AddDevice() {
   const [status, setStatus] = useState<Response>()
+  const [name, setName] = useState<string>('')
 
   async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -46,14 +47,17 @@ export default function AddDevice() {
 
   return (
     <main className="container">
-      {status?.success === false && (
-        <output>
-          <p>
-            {status?.message || 'An error occurred. Please try again later.'}
-          </p>
-        </output>
-      )}
       <form onSubmit={handleFormSubmit}>
+        <output>
+          {status?.success === false && (
+            <p>
+              {status?.message || 'An error occurred. Please try again later.'}
+            </p>
+          )}
+        </output>
+        <div>
+          <h3 className="text-center capitalize">{name || 'New Device'}</h3>
+        </div>
         <div>
           <label htmlFor="type">
             <abbr title="Required">*</abbr> Type:
@@ -80,7 +84,13 @@ export default function AddDevice() {
           <label htmlFor="name">
             <abbr title="Required">*</abbr> Name/Make/Hostname:
           </label>
-          <input type="text" id="name" name="name" required />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            onChange={(e) => setName(e.currentTarget.value)}
+          />
         </div>
 
         <div>
@@ -120,7 +130,7 @@ export default function AddDevice() {
           <button type="submit">Submit Changes</button>
         </div>
       </form>
-      <p className="secondary">* Required</p>
+      <p className="explanation">* Required</p>
     </main>
   )
 }

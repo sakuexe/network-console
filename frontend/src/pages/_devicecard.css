@@ -74,16 +74,19 @@ hr {
   padding: var(--card-padding-block) var(--card-padding-inline);
   color: var(--primary-light);
   text-decoration: none;
+  border-right: 2px solid var(--secondary-dark);
+  transition: color 0.2s ease-in-out;
 }
 
 .card-body > a:hover {
   color: var(--primary-dark);
+  background-color: var(--primary-light);
 }
 
 /* dashboard arrow icon */
 .card-body > a:first-child > i {
   font-size: 0.8rem;
-  color: var(--primary-light);
+  color: inherit;
 }
 
 /* ip copy icon */

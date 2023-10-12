@@ -39,12 +39,12 @@ const isLoggedIn = Astro.cookies.get('loggedIn')?.value === 'true'
 
 {
   devices.length < 1 ? (
-    <main class="container">
-      <header>
-        <h2>No devices found</h2>
-        <p>No connection to the backend</p>
-        <button id="reload">Reload?</button>
-      </header>
+    <main class="container text-center">
+      <div>
+      <h2>No devices found</h2>
+      <p>Connection to the database failed</p>
+      <a href="/">Reload?</a>
+      </div>
     </main>
   ) : (
     <main class="container">
@@ -82,9 +82,6 @@ const isLoggedIn = Astro.cookies.get('loggedIn')?.value === 'true'
 }
 
 <script>
-  document.querySelector('button#reload')?.addEventListener('click', () => {
-    window.location.reload()
-  })
   document.querySelector('a#logout')?.addEventListener('click', () => {
     document.cookie = 'loggedIn=false; path=/;'
     window.location.reload()
