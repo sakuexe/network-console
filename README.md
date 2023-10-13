@@ -2,31 +2,37 @@
 
 Saku Karttunen - 10/2023
 
-## Table of contents:
+![The project's main image](./docs/mainimage.png)
 
-1. [About](/#About)
 
-   1. [Features](/#Features)
-   2. [Technologies used](/#Technologies-used)
+## Table of contents
 
-2. [How to use](/#How-to-use)
+1. [About](#About)
 
-   1. [Configurations](/#Configurations)
-      - [Frontend](/#Frontend)
-      - [Backend](/#Backend)
-   2. [Running the application](/#Running-the-application)
-   3. [Client table](/#Client-table)
+   1. [Features](#Features)
+   2. [Technologies used](#Technologies-used)
 
-3. [Database backups](/#Database-backups)
+2. [How to use](#How-to-use)
 
-   1. [Restoring the database](/#Restoring-the-database)
+   1. [Configurations](#Configurations)
+      - [Frontend](#Frontend)
+      - [Backend](#Backend)
+   2. [Running the application](#Running-the-application)
+   3. [Client table](#Client-table)
 
-4. [Troubleshooting](/#Troubleshooting)
+3. [Database backups](#Database-backups)
 
-5. [Report](/#Report)
-   1. [Frontend](/#Frontend)
-   2. [Backend](/#Backend)
-   3. [Dockerizing](/#Dockerizing)
+   1. [Restoring the database](#Restoring-the-database)
+
+4. [Troubleshooting](#Troubleshooting)
+
+5. [Report](#Report)
+   1. [Frontend](#Frontend)
+   2. [Backend](#Backend)
+   3. [Dockerizing](#Dockerizing)
+   4. [Features](#Features)
+
+6. [Thoughts](#Thoughts)
 
 <br/>
 
@@ -242,6 +248,8 @@ The architecture of the application consists of two main parts.
 
 ### Frontend
 
+![Main page](./docs/mainpage.png)
+
 The frontend is a simple Astro MPA (multi-page application) that
 uses server side rendering. This is done so that the applictation's
 state can be easily managed and the user experience will feel better
@@ -267,6 +275,8 @@ be using it in the future too.
 
 ### Backend
 
+![Backend architecture](./docs/backend.png)
+
 For the backend I used a simple express.js server. I had it work
 as an API for the frontend, which would talk to the database as
 was needed.
@@ -283,6 +293,8 @@ easy to mount it to the host machine with the use of docker
 volumes. I will explain the dockerization process next.
 
 ### Dockerizing the application
+
+![Docker architecture](./docs/dockerfiles.png)
 
 The assignment's idea was to make the application into an easily
 runnable and confgurable microservice. So dockerizing it was
@@ -352,6 +364,8 @@ the finished application was able to meet arguably all of them.
     ylläpidon helpottamiseksi on jokin tunnettu julkaisujärjestelmä tai alusta.
 
 </details>
+
+<br/>
 
 - Viewing devices in the network
 
